@@ -46,40 +46,70 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlChampion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ControlChampion.Designer.cs">
+      <DependentUpon>ControlChampion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="controlItems.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="controlItems.Designer.cs">
+      <DependentUpon>controlItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="controlRune.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="controlRune.Designer.cs">
+      <DependentUpon>controlRune.cs</DependentUpon>
+    </Compile>
+    <Compile Include="controlSpell.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="controlSpell.Designer.cs">
+      <DependentUpon>controlSpell.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmChampion.cs">
+    <Compile Include="FrmSummoner.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmChampion.Designer.cs">
-      <DependentUpon>FrmChampion.cs</DependentUpon>
+    <Compile Include="FrmSummoner.Designer.cs">
+      <DependentUpon>FrmSummoner.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmItems.cs">
-      <SubType>Form</SubType>
+    <Compile Include="MainControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="FrmItems.Designer.cs">
-      <DependentUpon>FrmItems.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmRune.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmRune.Designer.cs">
-      <DependentUpon>FrmRune.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrmSpell.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrmSpell.Designer.cs">
-      <DependentUpon>FrmSpell.cs</DependentUpon>
+    <Compile Include="MainControl.Designer.cs">
+      <DependentUpon>MainControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ControlChampion.resx">
+      <DependentUpon>ControlChampion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="controlItems.resx">
+      <DependentUpon>controlItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="controlRune.resx">
+      <DependentUpon>controlRune.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="controlSpell.resx">
+      <DependentUpon>controlSpell.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSummoner.resx">
+      <DependentUpon>FrmSummoner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainControl.resx">
+      <DependentUpon>MainControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -89,6 +119,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -102,6 +133,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\KakaoTalk_20181211_202916226.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

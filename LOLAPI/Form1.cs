@@ -15,65 +15,68 @@ namespace LOLAPI
         public Form1()
         {
             InitializeComponent();
+            this.mainControl1.BringToFront();
+            this.btnHome.BringToFront();
+            this.btnExitApi.BringToFront();
         }
-        FrmSpell fs;
-        FrmRune fr;
-        FrmItems fi;
-        FrmChampion fc;
-        //private void 스펠SpellToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    if (fs == null)
-        //    {
-        //        fs = new FrmSpell();
-        //        fs.MdiParent = this;
-        //        fs.Show();
-        //    }
-        //    else
-        //    {
-        //        fs.Focus();
-        //    }
-        //}
 
-        //private void 챔피언ChampionToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    if (fc == null)
-        //    {
-        //        fc = new FrmChampion();
-        //        fc.MdiParent = this;
-        //        fc.Show();
-        //    }
-        //    else
-        //    {
-        //        fc.Focus();
-        //    }
-        //}
+        private void btnChampion_Click(object sender, EventArgs e)
+        {
+            this.controlChampion1.BringToFront();
+            panel3.Height = btnChampion.Height;
+            panel3.Top = btnChampion.Top;
+            panel3.Visible = true;
+            this.btnHome.BringToFront();
+            this.btnExitApi.BringToFront();
 
-        //private void 룬RuneToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    if (fr == null)
-        //    {
-        //        fr = new FrmRune();
-        //        fr.MdiParent = this;
-        //        fr.Show();
-        //    }
-        //    else
-        //    {
-        //        fr.Focus();
-        //    }
-        //}
+        }
 
-        //private void 아이템ItemToolStripMenuItem_Click(object sender, EventArgs e)
-        //{
-        //    if (fi == null)
-        //    {
-        //        fi = new FrmItems();
-        //        fi.MdiParent = this;
-        //        fi.Show();
-        //    }
-        //    else
-        //    {
-        //        fi.Focus();
-        //    }
-        //}
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            this.mainControl1.BringToFront();
+            panel3.Visible = false;
+            this.mainControl1.textBox1.Clear();
+            this.btnHome.BringToFront();
+            this.btnExitApi.BringToFront();
+
+        }
+
+        private void btnItem_Click(object sender, EventArgs e)
+        {
+            this.controlItems1.BringToFront();
+            panel3.Height = btnItem.Height;
+            panel3.Top = btnItem.Top;
+            panel3.Visible = true;
+            this.btnHome.BringToFront();
+            this.btnExitApi.BringToFront();
+
+        }
+
+        private void btnSpell_Click(object sender, EventArgs e)
+        {
+            this.controlSpell1.BringToFront();
+            panel3.Height = btnSpell.Height;
+            panel3.Top = btnSpell.Top;
+            panel3.Visible = true;
+            this.btnHome.BringToFront();
+            this.btnExitApi.BringToFront();
+
+        }
+
+        private void btnRune_Click(object sender, EventArgs e)
+        {
+            this.controlRune1.BringToFront();
+            panel3.Height = btnRune.Height;
+            panel3.Top = btnRune.Top;
+            panel3.Visible = true;
+            this.btnHome.BringToFront();
+            this.btnExitApi.BringToFront();
+
+        }
+
+        private void btnExitApi_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

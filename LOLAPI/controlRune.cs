@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace LOLAPI
 {
-    public partial class FrmItems : Form
+    public partial class controlRune : UserControl
     {
-        public FrmItems()
+        public controlRune()
         {
             InitializeComponent();
         }

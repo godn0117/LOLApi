@@ -29,122 +29,194 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnRune = new System.Windows.Forms.Button();
+            this.btnSpell = new System.Windows.Forms.Button();
+            this.btnItem = new System.Windows.Forms.Button();
+            this.btnChampion = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.controlSpell1 = new LOLAPI.controlSpell();
+            this.btnExitApi = new System.Windows.Forms.Button();
+            this.controlRune1 = new LOLAPI.controlRune();
+            this.controlItems1 = new LOLAPI.controlItems();
+            this.controlChampion1 = new LOLAPI.ControlChampion();
+            this.btnHome = new System.Windows.Forms.Button();
+            this.mainControl1 = new LOLAPI.MainControl();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(279, 330);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(265, 21);
-            this.textBox1.TabIndex = 1;
-            // 
-            // button1
-            // 
-            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Location = new System.Drawing.Point(559, 310);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(95, 58);
-            this.button1.TabIndex = 2;
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DimGray;
-            this.panel1.Controls.Add(this.button5);
-            this.panel1.Controls.Add(this.button4);
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.button2);
+            this.panel1.Controls.Add(this.panel3);
+            this.panel1.Controls.Add(this.btnRune);
+            this.panel1.Controls.Add(this.btnSpell);
+            this.panel1.Controls.Add(this.btnItem);
+            this.panel1.Controls.Add(this.btnChampion);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(153, 441);
+            this.panel1.Size = new System.Drawing.Size(153, 584);
             this.panel1.TabIndex = 3;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.SlateGray;
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(153, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(647, 27);
-            this.panel2.TabIndex = 4;
             // 
             // panel3
             // 
-            this.panel3.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.panel3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel3.BackgroundImage")));
-            this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel3.Location = new System.Drawing.Point(723, 1);
+            this.panel3.BackColor = System.Drawing.Color.Turquoise;
+            this.panel3.Location = new System.Drawing.Point(3, 6);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(77, 96);
-            this.panel3.TabIndex = 0;
+            this.panel3.Size = new System.Drawing.Size(10, 134);
+            this.panel3.TabIndex = 6;
+            this.panel3.Visible = false;
             // 
-            // button2
+            // btnRune
             // 
-            this.button2.BackColor = System.Drawing.Color.Gray;
-            this.button2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button2.Location = new System.Drawing.Point(0, 0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(153, 110);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "챔피언\r\n(Champion)";
-            this.button2.UseVisualStyleBackColor = false;
+            this.btnRune.BackColor = System.Drawing.Color.Gray;
+            this.btnRune.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnRune.Location = new System.Drawing.Point(0, 438);
+            this.btnRune.Name = "btnRune";
+            this.btnRune.Size = new System.Drawing.Size(153, 146);
+            this.btnRune.TabIndex = 3;
+            this.btnRune.Text = " 룬\r\n(rune)";
+            this.btnRune.UseVisualStyleBackColor = false;
+            this.btnRune.Click += new System.EventHandler(this.btnRune_Click);
             // 
-            // button3
+            // btnSpell
             // 
-            this.button3.BackColor = System.Drawing.Color.Gray;
-            this.button3.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button3.Location = new System.Drawing.Point(0, 110);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(153, 110);
-            this.button3.TabIndex = 1;
-            this.button3.Text = " 아이템\r\n ( item )";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnSpell.BackColor = System.Drawing.Color.Gray;
+            this.btnSpell.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnSpell.Location = new System.Drawing.Point(0, 292);
+            this.btnSpell.Name = "btnSpell";
+            this.btnSpell.Size = new System.Drawing.Size(153, 146);
+            this.btnSpell.TabIndex = 2;
+            this.btnSpell.Text = " 스펠\r\n(spell)\r\n";
+            this.btnSpell.UseVisualStyleBackColor = false;
+            this.btnSpell.Click += new System.EventHandler(this.btnSpell_Click);
             // 
-            // button4
+            // btnItem
             // 
-            this.button4.BackColor = System.Drawing.Color.Gray;
-            this.button4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button4.Location = new System.Drawing.Point(0, 220);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(153, 110);
-            this.button4.TabIndex = 2;
-            this.button4.Text = " 스펠\r\n(spell)\r\n";
-            this.button4.UseVisualStyleBackColor = false;
+            this.btnItem.BackColor = System.Drawing.Color.Gray;
+            this.btnItem.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnItem.Location = new System.Drawing.Point(0, 146);
+            this.btnItem.Name = "btnItem";
+            this.btnItem.Size = new System.Drawing.Size(153, 146);
+            this.btnItem.TabIndex = 1;
+            this.btnItem.Text = " 아이템\r\n ( item )";
+            this.btnItem.UseVisualStyleBackColor = false;
+            this.btnItem.Click += new System.EventHandler(this.btnItem_Click);
             // 
-            // button5
+            // btnChampion
             // 
-            this.button5.BackColor = System.Drawing.Color.Gray;
-            this.button5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button5.Location = new System.Drawing.Point(0, 330);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(153, 110);
-            this.button5.TabIndex = 3;
-            this.button5.Text = " 룬\r\n(rune)";
-            this.button5.UseVisualStyleBackColor = false;
+            this.btnChampion.BackColor = System.Drawing.Color.Gray;
+            this.btnChampion.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnChampion.Location = new System.Drawing.Point(0, 0);
+            this.btnChampion.Name = "btnChampion";
+            this.btnChampion.Size = new System.Drawing.Size(153, 146);
+            this.btnChampion.TabIndex = 0;
+            this.btnChampion.Text = "챔피언\r\n(Champion)";
+            this.btnChampion.UseVisualStyleBackColor = false;
+            this.btnChampion.Click += new System.EventHandler(this.btnChampion_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.controlSpell1);
+            this.panel2.Controls.Add(this.btnExitApi);
+            this.panel2.Controls.Add(this.controlRune1);
+            this.panel2.Controls.Add(this.controlItems1);
+            this.panel2.Controls.Add(this.controlChampion1);
+            this.panel2.Controls.Add(this.btnHome);
+            this.panel2.Controls.Add(this.mainControl1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(153, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(863, 584);
+            this.panel2.TabIndex = 4;
+            // 
+            // controlSpell1
+            // 
+            this.controlSpell1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("controlSpell1.BackgroundImage")));
+            this.controlSpell1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.controlSpell1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.controlSpell1.Location = new System.Drawing.Point(0, 0);
+            this.controlSpell1.Name = "controlSpell1";
+            this.controlSpell1.Size = new System.Drawing.Size(863, 584);
+            this.controlSpell1.TabIndex = 5;
+            // 
+            // btnExitApi
+            // 
+            this.btnExitApi.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.btnExitApi.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnExitApi.BackgroundImage")));
+            this.btnExitApi.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnExitApi.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnExitApi.Location = new System.Drawing.Point(803, 539);
+            this.btnExitApi.Margin = new System.Windows.Forms.Padding(0);
+            this.btnExitApi.Name = "btnExitApi";
+            this.btnExitApi.Size = new System.Drawing.Size(60, 45);
+            this.btnExitApi.TabIndex = 6;
+            this.btnExitApi.UseVisualStyleBackColor = false;
+            this.btnExitApi.Click += new System.EventHandler(this.btnExitApi_Click);
+            // 
+            // controlRune1
+            // 
+            this.controlRune1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("controlRune1.BackgroundImage")));
+            this.controlRune1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.controlRune1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.controlRune1.Location = new System.Drawing.Point(0, 0);
+            this.controlRune1.Name = "controlRune1";
+            this.controlRune1.Size = new System.Drawing.Size(863, 584);
+            this.controlRune1.TabIndex = 4;
+            // 
+            // controlItems1
+            // 
+            this.controlItems1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("controlItems1.BackgroundImage")));
+            this.controlItems1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.controlItems1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.controlItems1.Location = new System.Drawing.Point(0, 0);
+            this.controlItems1.Name = "controlItems1";
+            this.controlItems1.Size = new System.Drawing.Size(863, 584);
+            this.controlItems1.TabIndex = 3;
+            // 
+            // controlChampion1
+            // 
+            this.controlChampion1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("controlChampion1.BackgroundImage")));
+            this.controlChampion1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.controlChampion1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.controlChampion1.Location = new System.Drawing.Point(0, 0);
+            this.controlChampion1.Name = "controlChampion1";
+            this.controlChampion1.Size = new System.Drawing.Size(863, 584);
+            this.controlChampion1.TabIndex = 2;
+            // 
+            // btnHome
+            // 
+            this.btnHome.BackColor = System.Drawing.Color.MediumBlue;
+            this.btnHome.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnHome.BackgroundImage")));
+            this.btnHome.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnHome.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnHome.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnHome.Location = new System.Drawing.Point(750, 4);
+            this.btnHome.Name = "btnHome";
+            this.btnHome.Size = new System.Drawing.Size(110, 114);
+            this.btnHome.TabIndex = 1;
+            this.btnHome.UseVisualStyleBackColor = false;
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
+            // 
+            // mainControl1
+            // 
+            this.mainControl1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("mainControl1.BackgroundImage")));
+            this.mainControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.mainControl1.Location = new System.Drawing.Point(4, 4);
+            this.mainControl1.Name = "mainControl1";
+            this.mainControl1.Size = new System.Drawing.Size(856, 580);
+            this.mainControl1.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(800, 441);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(1016, 584);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -153,22 +225,26 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ㅗ";
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnRune;
+        private System.Windows.Forms.Button btnSpell;
+        private System.Windows.Forms.Button btnItem;
+        private System.Windows.Forms.Button btnChampion;
         private System.Windows.Forms.Panel panel2;
+        private MainControl mainControl1;
+        private System.Windows.Forms.Button btnHome;
+        private ControlChampion controlChampion1;
+        private controlSpell controlSpell1;
+        private controlRune controlRune1;
+        private controlItems controlItems1;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnExitApi;
     }
 }
 
