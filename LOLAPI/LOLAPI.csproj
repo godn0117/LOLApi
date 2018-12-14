@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bans.cs" />
     <Compile Include="ControlChampion.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -91,6 +92,9 @@
     <Compile Include="MainControl.Designer.cs">
       <DependentUpon>MainControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Matches.cs" />
+    <Compile Include="MatchInf.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Summoner.cs" />
