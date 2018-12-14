@@ -8,14 +8,6 @@ namespace LOLAPI
 {
     class Champion
     {
-        private string version;
-
-        public string Version
-        {
-            get { return version; }
-            set { version = value; }
-        }
-
         private string id;
 
         public string Id
@@ -64,12 +56,12 @@ namespace LOLAPI
             set { info = value; }
         }
 
-        private ApiImage image;
+        private string full;
 
-        public ApiImage Image
+        public string Full
         {
-            get { return image; }
-            set { image = value; }
+            get { return full; }
+            set { full = value; }
         }
 
         private string[] tags;
@@ -192,22 +184,6 @@ namespace LOLAPI
             set { mpregenperlevel = value; }
         }
 
-        private float crit;
-
-        public float Crit
-        {
-            get { return crit; }
-            set { crit = value; }
-        }
-
-        private float critperlevel;
-
-        public float Critperlevel
-        {
-            get { return critperlevel; }
-            set { critperlevel = value; }
-        }
-
         private float attackdamage;
 
         public float Attackdamage
@@ -239,5 +215,24 @@ namespace LOLAPI
             get { return attackspeedperlevel; }
             set { attackspeedperlevel = value; }
         }
+        
+        private Skin[] skin;
+
+        public Skin[] Skin
+        {
+            get { return skin; }
+            set { skin = value; }
+        }
+
+
+        private Spells spell;
+
+        public Spells Spell
+        {
+            get { return spell; }
+            set { spell = value; }
+        }
+
+
     }
 }

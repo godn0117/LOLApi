@@ -36,7 +36,7 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("한컴 쿨재즈 L", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.textBox1.Location = new System.Drawing.Point(239, 305);
+            this.textBox1.Location = new System.Drawing.Point(397, 406);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(281, 35);
             this.textBox1.TabIndex = 2;
@@ -45,7 +45,7 @@
             // 
             this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Location = new System.Drawing.Point(542, 297);
+            this.button1.Location = new System.Drawing.Point(706, 398);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(95, 58);
             this.button1.TabIndex = 3;
@@ -56,12 +56,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Name = "MainControl";
-            this.Size = new System.Drawing.Size(637, 394);
+            this.Size = new System.Drawing.Size(883, 574);
             this.ResumeLayout(false);
             this.PerformLayout();
 

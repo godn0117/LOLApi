@@ -36,12 +36,12 @@
             this.btnItem = new System.Windows.Forms.Button();
             this.btnChampion = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.controlSpell1 = new LOLAPI.controlSpell();
             this.btnExitApi = new System.Windows.Forms.Button();
+            this.btnHome = new System.Windows.Forms.Button();
+            this.controlSpell1 = new LOLAPI.controlSpell();
             this.controlRune1 = new LOLAPI.controlRune();
             this.controlItems1 = new LOLAPI.controlItems();
             this.controlChampion1 = new LOLAPI.ControlChampion();
-            this.btnHome = new System.Windows.Forms.Button();
             this.mainControl1 = new LOLAPI.MainControl();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -58,15 +58,15 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(153, 584);
+            this.panel1.Size = new System.Drawing.Size(153, 676);
             this.panel1.TabIndex = 3;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.Turquoise;
-            this.panel3.Location = new System.Drawing.Point(3, 6);
+            this.panel3.Location = new System.Drawing.Point(3, 4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(10, 134);
+            this.panel3.Size = new System.Drawing.Size(10, 167);
             this.panel3.TabIndex = 6;
             this.panel3.Visible = false;
             // 
@@ -74,9 +74,9 @@
             // 
             this.btnRune.BackColor = System.Drawing.Color.Gray;
             this.btnRune.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnRune.Location = new System.Drawing.Point(0, 438);
+            this.btnRune.Location = new System.Drawing.Point(0, 512);
             this.btnRune.Name = "btnRune";
-            this.btnRune.Size = new System.Drawing.Size(153, 146);
+            this.btnRune.Size = new System.Drawing.Size(153, 175);
             this.btnRune.TabIndex = 3;
             this.btnRune.Text = " 룬\r\n(rune)";
             this.btnRune.UseVisualStyleBackColor = false;
@@ -86,9 +86,9 @@
             // 
             this.btnSpell.BackColor = System.Drawing.Color.Gray;
             this.btnSpell.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnSpell.Location = new System.Drawing.Point(0, 292);
+            this.btnSpell.Location = new System.Drawing.Point(0, 342);
             this.btnSpell.Name = "btnSpell";
-            this.btnSpell.Size = new System.Drawing.Size(153, 146);
+            this.btnSpell.Size = new System.Drawing.Size(153, 175);
             this.btnSpell.TabIndex = 2;
             this.btnSpell.Text = " 스펠\r\n(spell)\r\n";
             this.btnSpell.UseVisualStyleBackColor = false;
@@ -98,9 +98,9 @@
             // 
             this.btnItem.BackColor = System.Drawing.Color.Gray;
             this.btnItem.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnItem.Location = new System.Drawing.Point(0, 146);
+            this.btnItem.Location = new System.Drawing.Point(0, 172);
             this.btnItem.Name = "btnItem";
-            this.btnItem.Size = new System.Drawing.Size(153, 146);
+            this.btnItem.Size = new System.Drawing.Size(153, 175);
             this.btnItem.TabIndex = 1;
             this.btnItem.Text = " 아이템\r\n ( item )";
             this.btnItem.UseVisualStyleBackColor = false;
@@ -112,7 +112,7 @@
             this.btnChampion.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnChampion.Location = new System.Drawing.Point(0, 0);
             this.btnChampion.Name = "btnChampion";
-            this.btnChampion.Size = new System.Drawing.Size(153, 146);
+            this.btnChampion.Size = new System.Drawing.Size(153, 178);
             this.btnChampion.TabIndex = 0;
             this.btnChampion.Text = "챔피언\r\n(Champion)";
             this.btnChampion.UseVisualStyleBackColor = false;
@@ -130,8 +130,36 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(153, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(863, 584);
+            this.panel2.Size = new System.Drawing.Size(1138, 676);
             this.panel2.TabIndex = 4;
+            // 
+            // btnExitApi
+            // 
+            this.btnExitApi.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.btnExitApi.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnExitApi.BackgroundImage")));
+            this.btnExitApi.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnExitApi.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnExitApi.Location = new System.Drawing.Point(1087, 0);
+            this.btnExitApi.Margin = new System.Windows.Forms.Padding(0);
+            this.btnExitApi.Name = "btnExitApi";
+            this.btnExitApi.Size = new System.Drawing.Size(49, 50);
+            this.btnExitApi.TabIndex = 6;
+            this.btnExitApi.UseVisualStyleBackColor = false;
+            this.btnExitApi.Click += new System.EventHandler(this.btnExitApi_Click);
+            // 
+            // btnHome
+            // 
+            this.btnHome.BackColor = System.Drawing.Color.MediumBlue;
+            this.btnHome.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnHome.BackgroundImage")));
+            this.btnHome.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnHome.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btnHome.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnHome.Location = new System.Drawing.Point(1025, 0);
+            this.btnHome.Name = "btnHome";
+            this.btnHome.Size = new System.Drawing.Size(59, 50);
+            this.btnHome.TabIndex = 1;
+            this.btnHome.UseVisualStyleBackColor = false;
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
             // controlSpell1
             // 
@@ -140,22 +168,8 @@
             this.controlSpell1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlSpell1.Location = new System.Drawing.Point(0, 0);
             this.controlSpell1.Name = "controlSpell1";
-            this.controlSpell1.Size = new System.Drawing.Size(863, 584);
+            this.controlSpell1.Size = new System.Drawing.Size(1138, 676);
             this.controlSpell1.TabIndex = 5;
-            // 
-            // btnExitApi
-            // 
-            this.btnExitApi.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.btnExitApi.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnExitApi.BackgroundImage")));
-            this.btnExitApi.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnExitApi.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnExitApi.Location = new System.Drawing.Point(803, 539);
-            this.btnExitApi.Margin = new System.Windows.Forms.Padding(0);
-            this.btnExitApi.Name = "btnExitApi";
-            this.btnExitApi.Size = new System.Drawing.Size(60, 45);
-            this.btnExitApi.TabIndex = 6;
-            this.btnExitApi.UseVisualStyleBackColor = false;
-            this.btnExitApi.Click += new System.EventHandler(this.btnExitApi_Click);
             // 
             // controlRune1
             // 
@@ -164,7 +178,7 @@
             this.controlRune1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlRune1.Location = new System.Drawing.Point(0, 0);
             this.controlRune1.Name = "controlRune1";
-            this.controlRune1.Size = new System.Drawing.Size(863, 584);
+            this.controlRune1.Size = new System.Drawing.Size(1138, 676);
             this.controlRune1.TabIndex = 4;
             // 
             // controlItems1
@@ -174,7 +188,7 @@
             this.controlItems1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlItems1.Location = new System.Drawing.Point(0, 0);
             this.controlItems1.Name = "controlItems1";
-            this.controlItems1.Size = new System.Drawing.Size(863, 584);
+            this.controlItems1.Size = new System.Drawing.Size(1138, 676);
             this.controlItems1.TabIndex = 3;
             // 
             // controlChampion1
@@ -184,30 +198,19 @@
             this.controlChampion1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlChampion1.Location = new System.Drawing.Point(0, 0);
             this.controlChampion1.Name = "controlChampion1";
-            this.controlChampion1.Size = new System.Drawing.Size(863, 584);
+            this.controlChampion1.Size = new System.Drawing.Size(1138, 676);
             this.controlChampion1.TabIndex = 2;
-            // 
-            // btnHome
-            // 
-            this.btnHome.BackColor = System.Drawing.Color.MediumBlue;
-            this.btnHome.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnHome.BackgroundImage")));
-            this.btnHome.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnHome.Font = new System.Drawing.Font("굴림", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnHome.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnHome.Location = new System.Drawing.Point(750, 4);
-            this.btnHome.Name = "btnHome";
-            this.btnHome.Size = new System.Drawing.Size(110, 114);
-            this.btnHome.TabIndex = 1;
-            this.btnHome.UseVisualStyleBackColor = false;
-            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
             // 
             // mainControl1
             // 
+            this.mainControl1.AutoSize = true;
+            this.mainControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.mainControl1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("mainControl1.BackgroundImage")));
             this.mainControl1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.mainControl1.Location = new System.Drawing.Point(4, 4);
+            this.mainControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainControl1.Location = new System.Drawing.Point(0, 0);
             this.mainControl1.Name = "mainControl1";
-            this.mainControl1.Size = new System.Drawing.Size(856, 580);
+            this.mainControl1.Size = new System.Drawing.Size(1138, 676);
             this.mainControl1.TabIndex = 0;
             // 
             // Form1
@@ -216,7 +219,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gainsboro;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1016, 584);
+            this.ClientSize = new System.Drawing.Size(1291, 676);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -226,6 +229,7 @@
             this.Text = "ㅗ";
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
