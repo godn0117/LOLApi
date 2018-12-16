@@ -80,9 +80,42 @@ namespace LOLAPI
 
         private void ParsingPlayer()
         {
+            string currentPlatformId;
+            string summonerName;
+            string matchHistoryUri;
+            string platformId;
+            string currentAccountId;
+            int profileIcon;
+            string summonerId;
+            string accountId;
+            int participantId;
+            int kills;
+            int assists;
+            int deaths;
+            int goldEarned;
+            int totalDamageDealtToChampions;
+            int totalDamageTaken;
+            int item0;
+            int item1;
+            int item2;
+            int item3;
+            int item4;
+            int item5;
+            int item6;
+            int perk0;
+            int perk1;
+            int perk2;
+            int perk3;
+            int perk4;
+            int perk5;
+            bool playerwin;
+            int spell1Id;
+            int spell2Id;
+            int championId;
+
             for (int i = 0; i < 10; i++)
             {
-                var url = "https://kr.api.riotgames.com/lol/match/v4/matches/" + lstMatches[i].GameId + "?api_key=RGAPI-925bf515-58ba-4114-b917-f633ec288cd8";
+                var url = "https://kr.api.riotgames.com/lol/match/v4/matches/" + lstMatches[i].GameId + "?api_key=RGAPI-6fa8d8d0-1636-4b98-97e5-724bae313026";
                 var req = (HttpWebRequest)WebRequest.Create(url);
                 var res = (HttpWebResponse)req.GetResponse();
                 var stream = res.GetResponseStream();
@@ -94,15 +127,15 @@ namespace LOLAPI
                 var itemsArr = JArray.Parse(jObj["participantIdentities"].ToString());
                 foreach (JObject item in itemsArr)
                 {
-                    string currentPlatformId = item["player"]["currentPlatformId"].ToString();
-                    string summonerName = item["player"]["summonerName"].ToString();
-                    string matchHistoryUri = item["player"]["matchHistoryUri"].ToString();
-                    string platformId = item["player"]["platformId"].ToString();
-                    string currentAccountId = item["player"]["currentAccountId"].ToString();
-                    int profileIcon = Int32.Parse(item["player"]["profileIcon"].ToString());
-                    string summonerId = item["player"]["summonerId"].ToString();
-                    string accountId = item["player"]["accountId"].ToString();
-                    int participantId = Int32.Parse(item["participantId"].ToString());
+                    currentPlatformId = item["player"]["currentPlatformId"].ToString();
+                    summonerName = item["player"]["summonerName"].ToString();
+                    matchHistoryUri = item["player"]["matchHistoryUri"].ToString();
+                    platformId = item["player"]["platformId"].ToString();
+                    currentAccountId = item["player"]["currentAccountId"].ToString();
+                    profileIcon = Int32.Parse(item["player"]["profileIcon"].ToString());
+                    summonerId = item["player"]["summonerId"].ToString();
+                    accountId = item["player"]["accountId"].ToString();
+                    participantId = Int32.Parse(item["participantId"].ToString());
 
                     Player p = new Player
                     {
@@ -118,6 +151,18 @@ namespace LOLAPI
                     };
                     lstPlayer.Add(p);
                 }
+
+                var itemsArr3 = JArray.Parse(jObj["participants"].ToString());
+                foreach (var jtem in lstPlayer)
+                {
+                    foreach (JObject item in itemsArr3)
+                    {
+                        kills = Int32.Parse(item["stats"]["kills"].ToString());
+
+                        jtem.Kills = kills;
+                    }
+                }
+
                 List<Bans> banList = new List<Bans>();
                 var itemsArr2 = JArray.Parse(jObj["teams"].ToString());
                 foreach (JObject item in itemsArr2)
@@ -154,30 +199,30 @@ namespace LOLAPI
                         Bans = banList,
                         FirstInhibitor = firstInhibitor,
                         Win = win,
-                        FirstRiftHerald= firstRiftHerald,
-                        FirstBaron=firstBaron,
-                        BaronKills=baronKills,
-                        RiftHeraldKills=riftHeraldKills,
-                        FirstBlood=firstBlood,
-                        TeamId=teamId,
-                        FirstTower=firstTower,
-                        VilemawKills=vilemawKills,
-                        InhibitorKills=inhibitorKills,
-                        TowerKills=towerKills,
-                        DominionVictoryScore=dominionVictoryScore,
-                        DragonKills=dragonKills                        
+                        FirstRiftHerald = firstRiftHerald,
+                        FirstBaron = firstBaron,
+                        BaronKills = baronKills,
+                        RiftHeraldKills = riftHeraldKills,
+                        FirstBlood = firstBlood,
+                        TeamId = teamId,
+                        FirstTower = firstTower,
+                        VilemawKills = vilemawKills,
+                        InhibitorKills = inhibitorKills,
+                        TowerKills = towerKills,
+                        DominionVictoryScore = dominionVictoryScore,
+                        DragonKills = dragonKills
                     };
-                    
+
                     lstMatInf.Add(m);
                 }
             }
-            this.dataGridView1.DataSource = lstMatInf;
-            //this.dataGridView1.DataSource = lstPlayer;
+            //this.dataGridView1.DataSource = lstMatInf;
+            this.dataGridView1.DataSource = lstPlayer;
         }
 
         private void ParsingMatches()
         {
-            var url = "https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + lstV4[0].AccountId + "?api_key=RGAPI-925bf515-58ba-4114-b917-f633ec288cd8";
+            var url = "https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + lstV4[0].AccountId + "?api_key=RGAPI-6fa8d8d0-1636-4b98-97e5-724bae313026";
             var req = (HttpWebRequest)WebRequest.Create(url);
 
             try
@@ -233,7 +278,7 @@ namespace LOLAPI
         }
         private void ParsingSummonerRank()
         {
-            var url = "https://kr.api.riotgames.com/lol/league/v4/positions/by-summoner/" + lstV4[0].Id + "?api_key=RGAPI-925bf515-58ba-4114-b917-f633ec288cd8";
+            var url = "https://kr.api.riotgames.com/lol/league/v4/positions/by-summoner/" + lstV4[0].Id + "?api_key=RGAPI-6fa8d8d0-1636-4b98-97e5-724bae313026";
             var req = (HttpWebRequest)WebRequest.Create(url);
 
             try
@@ -327,8 +372,8 @@ namespace LOLAPI
 
         private void ParsingSummonerCode()
         {
-            var url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + searchName + "?api_key=RGAPI-925bf515-58ba-4114-b917-f633ec288cd8";
-            var url2 = "https://kr.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + searchName + "?api_key=RGAPI-925bf515-58ba-4114-b917-f633ec288cd8";
+            var url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + searchName + "?api_key=RGAPI-6fa8d8d0-1636-4b98-97e5-724bae313026";
+            var url2 = "https://kr.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + searchName + "?api_key=RGAPI-6fa8d8d0-1636-4b98-97e5-724bae313026";
             var req = (HttpWebRequest)WebRequest.Create(url);
             var req2 = (HttpWebRequest)WebRequest.Create(url2);
 
