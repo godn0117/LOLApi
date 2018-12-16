@@ -113,6 +113,8 @@ namespace LOLAPI
             int spell2Id;
             int championId;
 
+            List<Player> lstplayer2 = new List<Player>();
+
             for (int i = 0; i < 10; i++)
             {
                 var url = "https://kr.api.riotgames.com/lol/match/v4/matches/" + lstMatches[i].GameId + "?api_key=RGAPI-6fa8d8d0-1636-4b98-97e5-724bae313026";
@@ -149,19 +151,66 @@ namespace LOLAPI
                         AccountId = accountId,
                         ParticipantId = participantId
                     };
+
                     lstPlayer.Add(p);
                 }
-
                 var itemsArr3 = JArray.Parse(jObj["participants"].ToString());
-                foreach (var jtem in lstPlayer)
+                foreach (JObject item in itemsArr3)
                 {
-                    foreach (JObject item in itemsArr3)
-                    {
-                        kills = Int32.Parse(item["stats"]["kills"].ToString());
+                    kills = Int32.Parse(item["stats"]["kills"].ToString());
+                    assists = Int32.Parse(item["stats"]["assists"].ToString());
+                    deaths = Int32.Parse(item["stats"]["deaths"].ToString());
+                    goldEarned = Int32.Parse(item["stats"]["goldEarned"].ToString());
+                    totalDamageDealtToChampions = Int32.Parse(item["stats"]["totalDamageDealtToChampions"].ToString());
+                    totalDamageTaken = Int32.Parse(item["stats"]["totalDamageTaken"].ToString());
+                    item0 = Int32.Parse(item["stats"]["item0"].ToString());
+                    item1 = Int32.Parse(item["stats"]["item1"].ToString());
+                    item2 = Int32.Parse(item["stats"]["item2"].ToString());
+                    item3 = Int32.Parse(item["stats"]["item3"].ToString());
+                    item4 = Int32.Parse(item["stats"]["item4"].ToString());
+                    item5 = Int32.Parse(item["stats"]["item5"].ToString());
+                    item6 = Int32.Parse(item["stats"]["item6"].ToString());
+                    perk0 = Int32.Parse(item["stats"]["perk0"].ToString());
+                    perk1 = Int32.Parse(item["stats"]["perk1"].ToString());
+                    perk2 = Int32.Parse(item["stats"]["perk2"].ToString());
+                    perk3 = Int32.Parse(item["stats"]["perk3"].ToString());
+                    perk4 = Int32.Parse(item["stats"]["perk4"].ToString());
+                    perk5 = Int32.Parse(item["stats"]["perk5"].ToString());
+                    playerwin = bool.Parse(item["stats"]["win"].ToString());
+                    spell1Id = Int32.Parse(item["spell1Id"].ToString());
+                    spell2Id = Int32.Parse(item["spell2Id"].ToString());
+                    championId = Int32.Parse(item["championId"].ToString());
 
-                        jtem.Kills = kills;
-                    }
+                    Player p1 = new Player
+                    {
+                        Kills = kills,
+                        Assists = assists,
+                        Deaths = deaths,
+                        GoldEarned= goldEarned,
+                        TotalDamageDealtToChampions=totalDamageDealtToChampions,
+                        TotalDamageTaken=totalDamageTaken,
+                        Item0=item0,
+                        Item1=item1,
+                        Item2=item2,
+                        Item3=item3,
+                        Item4=item4,
+                        Item5=item5,
+                        Item6=item6,
+                        Perk0=perk0,
+                        Perk1=perk1,
+                        Perk2=perk2,
+                        Perk3=perk3,
+                        Perk4=perk4,
+                        Perk5=perk5,
+                        Win=playerwin,
+                        Spell1Id=spell1Id,
+                        Spell2Id=spell2Id,
+                        ChampionId=championId
+                    };
+                    lstplayer2.Add(p1);
                 }
+
+
 
                 List<Bans> banList = new List<Bans>();
                 var itemsArr2 = JArray.Parse(jObj["teams"].ToString());
@@ -215,6 +264,32 @@ namespace LOLAPI
 
                     lstMatInf.Add(m);
                 }
+            }
+            for (int i = 0; i < lstPlayer.Count; i++)
+            {// 따로 파싱한 플레이어 정보 하나로 합침 (수정..)
+                lstPlayer[i].Kills = lstplayer2[i].Kills;
+                lstPlayer[i].Assists = lstplayer2[i].Assists;
+                lstPlayer[i].Deaths = lstplayer2[i].Deaths;
+                lstPlayer[i].GoldEarned = lstplayer2[i].GoldEarned;
+                lstPlayer[i].TotalDamageDealtToChampions = lstplayer2[i].TotalDamageDealtToChampions;
+                lstPlayer[i].TotalDamageTaken = lstplayer2[i].TotalDamageTaken;
+                lstPlayer[i].Item0 = lstplayer2[i].Item0;
+                lstPlayer[i].Item1 = lstplayer2[i].Item1;
+                lstPlayer[i].Item2 = lstplayer2[i].Item2;
+                lstPlayer[i].Item3 = lstplayer2[i].Item3;
+                lstPlayer[i].Item4 = lstplayer2[i].Item4;
+                lstPlayer[i].Item5 = lstplayer2[i].Item5;
+                lstPlayer[i].Item6 = lstplayer2[i].Item6;
+                lstPlayer[i].Perk0 = lstplayer2[i].Perk0;
+                lstPlayer[i].Perk1 = lstplayer2[i].Perk1;
+                lstPlayer[i].Perk2 = lstplayer2[i].Perk2;
+                lstPlayer[i].Perk3 = lstplayer2[i].Perk3;
+                lstPlayer[i].Perk4 = lstplayer2[i].Perk4;
+                lstPlayer[i].Perk5 = lstplayer2[i].Perk5;
+                lstPlayer[i].Win = lstplayer2[i].Win;
+                lstPlayer[i].Spell1Id = lstplayer2[i].Spell1Id;
+                lstPlayer[i].Spell2Id = lstplayer2[i].Spell2Id;
+                lstPlayer[i].ChampionId = lstplayer2[i].ChampionId;
             }
             //this.dataGridView1.DataSource = lstMatInf;
             this.dataGridView1.DataSource = lstPlayer;
