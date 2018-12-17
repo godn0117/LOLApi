@@ -62,6 +62,12 @@
     <Compile Include="controlItems.Designer.cs">
       <DependentUpon>controlItems.cs</DependentUpon>
     </Compile>
+    <Compile Include="controlMatchDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="controlMatchDetail.Designer.cs">
+      <DependentUpon>controlMatchDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="controlMatchInfo.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -111,6 +117,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="controlItems.resx">
       <DependentUpon>controlItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="controlMatchDetail.resx">
+      <DependentUpon>controlMatchDetail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="controlMatchInfo.resx">
       <DependentUpon>controlMatchInfo.cs</DependentUpon>

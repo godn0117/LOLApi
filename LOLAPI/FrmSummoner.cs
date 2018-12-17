@@ -35,7 +35,7 @@ namespace LOLAPI
         private List<Matches> lstMatches = new List<Matches>();
         private List<Player> lstPlayer = new List<Player>();
         private List<MatchInf> lstMatInf = new List<MatchInf>();
-        private DataTable addrTab;
+        private DataTable resultTab;
 
 
         public FrmSummoner()
@@ -81,22 +81,22 @@ namespace LOLAPI
                     this.txtTeamLeagueName.Text = lstRank[i].LeagueName;
                 }
             }
-            addrTab = new DataTable();
-            addrTab.Columns.Add("승/패");
-            addrTab.Columns.Add("챔피언");
-            addrTab.Columns.Add("K D A");
-            addrTab.Columns.Add("스펠");
-            addrTab.Columns.Add("아이템");
-            addrTab.Columns.Add("골드수급");
-            addrTab.Columns.Add("딜량");
-            addrTab.Columns.Add("피해량");
+            resultTab = new DataTable();
+            resultTab.Columns.Add("승/패");
+            resultTab.Columns.Add("챔피언");
+            resultTab.Columns.Add("K D A");
+            resultTab.Columns.Add("스펠");
+            resultTab.Columns.Add("아이템");
+            resultTab.Columns.Add("골드수급");
+            resultTab.Columns.Add("딜량");
+            resultTab.Columns.Add("피해량");
 
 
             for (int i = 0; i < lstPlayer.Count; i++)
             {
                 if (lstPlayer[i].SummonerName == searchName)
                 {
-                    DataRow row = addrTab.NewRow();
+                    DataRow row = resultTab.NewRow();
                     if (lstPlayer[i].Win == true)
                     {
                         row["승/패"] = "승";
@@ -112,12 +112,12 @@ namespace LOLAPI
                     row["골드수급"] = lstPlayer[i].GoldEarned + " Gold";
                     row["딜량"] = lstPlayer[i].TotalDamageDealtToChampions;
                     row["피해량"] = lstPlayer[i].TotalDamageTaken;
-                    
-                    addrTab.Rows.Add(row);
+
+                    resultTab.Rows.Add(row);
                     //dataGridView1.Rows.Add(row);
                 }
             }
-            this.dataGridView1.DataSource = addrTab;
+            this.dataGridView1.DataSource = resultTab;
         }
 
         private void ParsingPlayer()
@@ -280,8 +280,8 @@ namespace LOLAPI
                         Bans ban = new Bans();
                         ban.PickTurn = Int32.Parse(banArr["pickTurn"].ToString());
                         ban.ChampionId = Int32.Parse(banArr["championId"].ToString());
-                        textBox2.Text += ban.PickTurn + " ";
-                        textBox2.Text += ban.ChampionId + " \r\n";
+                        //textBox2.Text += ban.PickTurn + " ";
+                        //textBox2.Text += ban.ChampionId + " \r\n";
                         banList.Add(ban);
                     }
                     bool firstInhibitor = bool.Parse(item["firstInhibitor"].ToString());
@@ -600,6 +600,165 @@ namespace LOLAPI
 
             //this.dataGridView1.DataSource = lstV3;
             //this.dataGridView1.DataSource = lstV4;
+        }
+
+        private DataTable matchBlueTab;
+        private DataTable matchRedTab;
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            this.controlMatchInfo1.Visible = true;
+            this.controlMatchDetail1.Visible = true;
+
+            this.controlMatchInfo1.button1.Click += Button1_Click;
+
+            matchBlueTab = new DataTable();
+            matchBlueTab.Columns.Add("챔피언");
+            matchBlueTab.Columns.Add("소환사");
+            matchBlueTab.Columns.Add("K D A");
+            matchBlueTab.Columns.Add("스펠");
+            matchBlueTab.Columns.Add("아이템");
+            matchBlueTab.Columns.Add("골드수급");
+            matchBlueTab.Columns.Add("딜량");
+            matchBlueTab.Columns.Add("피해량");
+
+            matchRedTab = new DataTable();
+            matchRedTab.Columns.Add("챔피언");
+            matchRedTab.Columns.Add("소환사");
+            matchRedTab.Columns.Add("K D A");
+            matchRedTab.Columns.Add("스펠");
+            matchRedTab.Columns.Add("아이템");
+            matchRedTab.Columns.Add("골드수급");
+            matchRedTab.Columns.Add("딜량");
+            matchRedTab.Columns.Add("피해량");
+
+
+            int a = e.RowIndex * 10;
+
+            for (int j = 0; j < 5; j++)
+            {
+                DataRow rowBlue = matchBlueTab.NewRow();
+                int b = a + j;
+                rowBlue["챔피언"] = lstPlayer[b].ChampionId;
+                rowBlue["소환사"] = lstPlayer[b].SummonerName;
+                rowBlue["K D A"] = lstPlayer[b].Kills + " / " + lstPlayer[b].Deaths + " / " + lstPlayer[b].Assists;
+                rowBlue["스펠"] = lstPlayer[b].Spell1Id + " / " + lstPlayer[b].Spell2Id;
+                rowBlue["아이템"] = lstPlayer[b].Item0 + "/" + lstPlayer[b].Item1 + "/" + lstPlayer[b].Item2 + "/" + lstPlayer[b].Item3 + "/" + lstPlayer[b].Item4 + "/" + lstPlayer[b].Item5 + "/" + lstPlayer[b].Item6;
+                rowBlue["골드수급"] = lstPlayer[b].GoldEarned;
+                rowBlue["딜량"] = lstPlayer[b].TotalDamageDealtToChampions;
+                rowBlue["피해량"] = lstPlayer[b].TotalDamageTaken;
+
+                matchBlueTab.Rows.Add(rowBlue);
+            }
+            for (int k = 5; k < 10; k++)
+            {
+                DataRow rowRed = matchRedTab.NewRow();
+
+                int c = a + k;
+
+                rowRed["챔피언"] = lstPlayer[c].ChampionId;
+                rowRed["소환사"] = lstPlayer[c].SummonerName;
+                rowRed["K D A"] = lstPlayer[c].Kills + " / " + lstPlayer[c].Deaths + " / " + lstPlayer[c].Assists;
+                rowRed["스펠"] = lstPlayer[c].Spell1Id + " / " + lstPlayer[c].Spell2Id;
+                rowRed["아이템"] = lstPlayer[c].Item0 + "/" + lstPlayer[c].Item1 + "/" + lstPlayer[c].Item2 + "/" + lstPlayer[c].Item3 + "/" + lstPlayer[c].Item4 + "/" + lstPlayer[c].Item5 + "/" + lstPlayer[c].Item6;
+                rowRed["골드수급"] = lstPlayer[c].GoldEarned;
+                rowRed["딜량"] = lstPlayer[c].TotalDamageDealtToChampions;
+                rowRed["피해량"] = lstPlayer[c].TotalDamageTaken;
+
+                matchRedTab.Rows.Add(rowRed);
+            }
+
+            controlMatchInfo1.dgvBlueTeam.DataSource = matchBlueTab;
+            controlMatchInfo1.dgvRedTeam.DataSource = matchRedTab;
+
+            //List<Bans> lstoutput = new List<Bans>();
+            int matchIndexNum = e.RowIndex * 2;
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    controlMatchInfo1.txtBansBlue.Text += lstMatInf[matchIndexNum].Bans[i].ToString();
+            //    controlMatchInfo1.txtBansRed.Text += lstMatInf[matchIndexNum + 1].Bans[i].ToString();
+            //}
+
+            if (lstMatInf[matchIndexNum].Win == "Win")
+            {
+                controlMatchInfo1.lblWin.Text = "블루팀 승리";
+                controlMatchInfo1.lblWin.ForeColor = Color.CornflowerBlue;
+            }
+            else
+            {
+                controlMatchInfo1.lblWin.Text = "레드팀 승리";
+                controlMatchInfo1.lblWin.ForeColor = Color.PaleVioletRed;
+            }
+
+            int sumDragon = lstMatInf[matchIndexNum].DragonKills + lstMatInf[matchIndexNum+1].DragonKills;
+            int sumBaron = lstMatInf[matchIndexNum].BaronKills + lstMatInf[matchIndexNum+1].BaronKills;
+            int sumTower = lstMatInf[matchIndexNum].TowerKills + lstMatInf[matchIndexNum+1].TowerKills;
+            int sumInhibitor = lstMatInf[matchIndexNum].InhibitorKills + lstMatInf[matchIndexNum+1].InhibitorKills;
+            //this.controlMatchDetail1.lblSumObject.Text = "총 드래곤 : " + sumDragon + " 총 바론 : " + sumBaron+"\n" +  "총 타워파괴 : " + sumTower + " 총 억제기 파괴 : " + sumInhibitor;
+            this.controlMatchDetail1.label10.Text = "총 드래곤 : " + sumDragon;
+            this.controlMatchDetail1.label12.Text = " 총 바론 : " + sumBaron;
+            this.controlMatchDetail1.label9.Text = "총 타워파괴 : " + sumTower;
+            this.controlMatchDetail1.label11.Text= " 총 억제기 파괴 : " + sumInhibitor;
+
+            this.controlMatchDetail1.lblBlueDragon.Text = "드래곤 : " + lstMatInf[matchIndexNum].DragonKills;
+            this.controlMatchDetail1.lblBlueBaron.Text = "바론 : " + lstMatInf[matchIndexNum].BaronKills;
+            this.controlMatchDetail1.lblBlueTower.Text = "타워 : " + lstMatInf[matchIndexNum].TowerKills;
+            this.controlMatchDetail1.lblBlueInhibitor.Text = "억제기 : " + lstMatInf[matchIndexNum].InhibitorKills;
+
+            this.controlMatchDetail1.lblRedDragon.Text = "드래곤 : " + lstMatInf[matchIndexNum+1].DragonKills;
+            this.controlMatchDetail1.lblRedBaron.Text = "바론 : " + lstMatInf[matchIndexNum+1].BaronKills;
+            this.controlMatchDetail1.lblRedTower.Text = "타워 : " + lstMatInf[matchIndexNum+1].TowerKills;
+            this.controlMatchDetail1.lblRedInhibitor.Text = "억제기 : " + lstMatInf[matchIndexNum+1].InhibitorKills;
+
+            if (lstMatInf[matchIndexNum].FirstDragon)
+            {
+                this.controlMatchDetail1.lblDragon.Text = "첫 드래곤 : 블루팀";
+                this.controlMatchDetail1.lblDragon.ForeColor = Color.Blue;
+            }
+            else
+            {
+                this.controlMatchDetail1.lblDragon.Text = "첫 드래곤 : 레드팀";
+                this.controlMatchDetail1.lblDragon.ForeColor = Color.Red;
+            }
+
+            if (lstMatInf[matchIndexNum].FirstBaron)
+            {
+                this.controlMatchDetail1.lblBaron.Text = "첫 바론 : 블루팀";
+                this.controlMatchDetail1.lblBaron.ForeColor = Color.Blue;
+            }
+            else
+            {
+                this.controlMatchDetail1.lblBaron.Text = "첫 바론 : 레드팀";
+                this.controlMatchDetail1.lblBaron.ForeColor = Color.Red;
+            }
+
+            if (lstMatInf[matchIndexNum].FirstTower)
+            {
+                this.controlMatchDetail1.lblTower.Text = "첫 타워 : 블루팀";
+                this.controlMatchDetail1.lblTower.ForeColor = Color.Blue;
+            }
+            else
+            {
+                this.controlMatchDetail1.lblTower.Text = "첫 타워 : 레드팀";
+                this.controlMatchDetail1.lblTower.ForeColor = Color.Red;
+            }
+
+            if (lstMatInf[matchIndexNum].FirstInhibitor)
+            {
+                this.controlMatchDetail1.lblInhibitor.Text = "첫 억제기 : 블루팀";
+                this.controlMatchDetail1.lblInhibitor.ForeColor = Color.Blue;
+            }
+            else
+            {
+                this.controlMatchDetail1.lblInhibitor.Text = "첫 억제기 : 레드팀";
+                this.controlMatchDetail1.lblInhibitor.ForeColor = Color.Red;
+            }
+
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            this.controlMatchDetail1.Visible = false;
         }
     }
 }

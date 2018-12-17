@@ -10,16 +10,13 @@ using System.Windows.Forms;
 
 namespace LOLAPI
 {
-    public partial class controlMatchInfo : UserControl
+    public partial class controlMatchDetail : UserControl
     {
-        public controlMatchInfo()
+        public controlMatchDetail()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            this.Visible = false;
-        }
+
     }
 }

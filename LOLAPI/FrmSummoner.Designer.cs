@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSummoner));
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtLeagueName = new System.Windows.Forms.Label();
             this.txtLevel = new System.Windows.Forms.Label();
@@ -44,7 +43,8 @@
             this.txtTeamWinLose = new System.Windows.Forms.Label();
             this.txtTeamLeaguePoints = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.controlMatchInfo1 = new LOLAPI.controlMatchInfo();
+            this.controlMatchDetail1 = new LOLAPI.controlMatchDetail();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -67,20 +67,16 @@
             // 
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(282, 247);
+            this.dataGridView1.Location = new System.Drawing.Point(182, 323);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(537, 158);
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(755, 194);
             this.dataGridView1.TabIndex = 2;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(546, 497);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(422, 120);
-            this.textBox2.TabIndex = 3;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // groupBox1
             // 
@@ -229,21 +225,33 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("한컴 쿨재즈 L", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.ForeColor = System.Drawing.Color.Fuchsia;
-            this.label1.Location = new System.Drawing.Point(438, 9);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.label1.Location = new System.Drawing.Point(400, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(150, 49);
+            this.label1.Size = new System.Drawing.Size(180, 55);
             this.label1.TabIndex = 16;
             this.label1.Text = "소환사명";
             // 
-            // textBox1
+            // controlMatchInfo1
             // 
-            this.textBox1.Location = new System.Drawing.Point(94, 497);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(422, 120);
-            this.textBox1.TabIndex = 17;
+            this.controlMatchInfo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.controlMatchInfo1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.controlMatchInfo1.Location = new System.Drawing.Point(12, 124);
+            this.controlMatchInfo1.Name = "controlMatchInfo1";
+            this.controlMatchInfo1.Size = new System.Drawing.Size(811, 493);
+            this.controlMatchInfo1.TabIndex = 18;
+            this.controlMatchInfo1.Visible = false;
+            // 
+            // controlMatchDetail1
+            // 
+            this.controlMatchDetail1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("controlMatchDetail1.BackgroundImage")));
+            this.controlMatchDetail1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.controlMatchDetail1.Location = new System.Drawing.Point(825, 124);
+            this.controlMatchDetail1.Name = "controlMatchDetail1";
+            this.controlMatchDetail1.Size = new System.Drawing.Size(310, 273);
+            this.controlMatchDetail1.TabIndex = 28;
+            this.controlMatchDetail1.Visible = false;
             // 
             // FrmSummoner
             // 
@@ -252,9 +260,9 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1139, 656);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.controlMatchDetail1);
+            this.Controls.Add(this.controlMatchInfo1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
@@ -278,7 +286,6 @@
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label1;
@@ -291,6 +298,7 @@
         private System.Windows.Forms.Label txtTeamGrade;
         private System.Windows.Forms.Label txtTeamWinLose;
         private System.Windows.Forms.Label txtTeamLeaguePoints;
-        private System.Windows.Forms.TextBox textBox1;
+        private controlMatchInfo controlMatchInfo1;
+        private controlMatchDetail controlMatchDetail1;
     }
 }
