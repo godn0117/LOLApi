@@ -93,7 +93,15 @@ namespace LOLAPI
                     
                 }
             }
-            
+
+            // 로딩 이미지 추가
+            // http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg // 챔피언 로딩 사진
+
+            // 스킨 이미지 추가
+            // http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg // 챔피언 스킨 사진
+
+            // details
+
         }
 
         private JObject ReJObject(string name)
@@ -109,5 +117,37 @@ namespace LOLAPI
 
             return JObject.Parse(jObj["data"].ToString());
         }
+
+        #region 체크박스
+        private void checkBox1_CheckedChanged(object sender, EventArgs e) // 암살자
+        {
+
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e) // 전사
+        {
+
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e) // 마법사
+        {
+
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e) // 서포터
+        {
+
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e) // 탱커
+        {
+
+        }
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e) // 원거리 딜러
+        {
+
+        }
+        #endregion
     }
 }

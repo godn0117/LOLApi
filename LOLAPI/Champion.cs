@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -233,6 +234,20 @@ namespace LOLAPI
             set { spell = value; }
         }
 
+        private Image chamImage;
+
+        public Image ChamImage
+        {
+            get { return chamImage; }
+            set { chamImage = value; }
+        }
+        private Image loadImage;
+
+        public Image LoadImage
+        {
+            get { return loadImage; }
+            set { loadImage = value; }
+        }
 
     }
 }

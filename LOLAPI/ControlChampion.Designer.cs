@@ -49,7 +49,6 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -59,7 +58,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.panel3);
@@ -197,6 +195,7 @@
             this.checkBox6.TabIndex = 5;
             this.checkBox6.Text = "원거리 딜러";
             this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
             // 
             // checkBox5
             // 
@@ -208,6 +207,7 @@
             this.checkBox5.TabIndex = 4;
             this.checkBox5.Text = "탱커";
             this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
             // 
             // checkBox4
             // 
@@ -219,6 +219,7 @@
             this.checkBox4.TabIndex = 3;
             this.checkBox4.Text = "서포터";
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // checkBox3
             // 
@@ -230,6 +231,7 @@
             this.checkBox3.TabIndex = 2;
             this.checkBox3.Text = "마법사";
             this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -241,6 +243,7 @@
             this.checkBox2.TabIndex = 1;
             this.checkBox2.Text = "전사";
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // checkBox1
             // 
@@ -252,20 +255,13 @@
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "암살자";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // imageList1
             // 
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(260, 156);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(202, 64);
-            this.textBox2.TabIndex = 5;
             // 
             // ControlChampion
             // 
@@ -311,6 +307,5 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.TextBox textBox2;
     }
 }
