@@ -33,17 +33,17 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.txtLeagueName = new System.Windows.Forms.Label();
             this.txtLevel = new System.Windows.Forms.Label();
+            this.txtLeguePoints = new System.Windows.Forms.Label();
             this.txtWinLose = new System.Windows.Forms.Label();
             this.txtGrade = new System.Windows.Forms.Label();
-            this.txtLeguePoints = new System.Windows.Forms.Label();
-            this.txtLeagueName = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtTeamLeagueName = new System.Windows.Forms.Label();
-            this.txtTeamLeaguePoints = new System.Windows.Forms.Label();
-            this.txtTeamWinLose = new System.Windows.Forms.Label();
             this.txtTeamGrade = new System.Windows.Forms.Label();
+            this.txtTeamWinLose = new System.Windows.Forms.Label();
+            this.txtTeamLeaguePoints = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -65,12 +65,13 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(288, 307);
+            this.dataGridView1.Location = new System.Drawing.Point(282, 247);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(612, 160);
+            this.dataGridView1.Size = new System.Drawing.Size(537, 158);
             this.dataGridView1.TabIndex = 2;
             // 
             // textBox2
@@ -99,34 +100,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "솔로 랭크";
             // 
-            // groupBox2
+            // txtLeagueName
             // 
-            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.groupBox2.Controls.Add(this.txtTeamLeagueName);
-            this.groupBox2.Controls.Add(this.txtTeamGrade);
-            this.groupBox2.Controls.Add(this.txtTeamWinLose);
-            this.groupBox2.Controls.Add(this.txtTeamLeaguePoints);
-            this.groupBox2.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.groupBox2.ForeColor = System.Drawing.Color.Yellow;
-            this.groupBox2.Location = new System.Drawing.Point(589, 70);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(348, 171);
-            this.groupBox2.TabIndex = 15;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "자유 랭크";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("한컴 쿨재즈 L", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.ForeColor = System.Drawing.Color.Fuchsia;
-            this.label1.Location = new System.Drawing.Point(438, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(150, 49);
-            this.label1.TabIndex = 16;
-            this.label1.Text = "소환사명";
+            this.txtLeagueName.AutoSize = true;
+            this.txtLeagueName.BackColor = System.Drawing.Color.Transparent;
+            this.txtLeagueName.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtLeagueName.ForeColor = System.Drawing.Color.Snow;
+            this.txtLeagueName.Location = new System.Drawing.Point(6, 122);
+            this.txtLeagueName.Name = "txtLeagueName";
+            this.txtLeagueName.Size = new System.Drawing.Size(55, 16);
+            this.txtLeagueName.TabIndex = 21;
+            this.txtLeagueName.Text = "label6";
             // 
             // txtLevel
             // 
@@ -139,6 +123,18 @@
             this.txtLevel.Size = new System.Drawing.Size(55, 16);
             this.txtLevel.TabIndex = 17;
             this.txtLevel.Text = "label2";
+            // 
+            // txtLeguePoints
+            // 
+            this.txtLeguePoints.AutoSize = true;
+            this.txtLeguePoints.BackColor = System.Drawing.Color.Transparent;
+            this.txtLeguePoints.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtLeguePoints.ForeColor = System.Drawing.Color.Snow;
+            this.txtLeguePoints.Location = new System.Drawing.Point(177, 79);
+            this.txtLeguePoints.Name = "txtLeguePoints";
+            this.txtLeguePoints.Size = new System.Drawing.Size(55, 16);
+            this.txtLeguePoints.TabIndex = 20;
+            this.txtLeguePoints.Text = "label5";
             // 
             // txtWinLose
             // 
@@ -164,29 +160,22 @@
             this.txtGrade.TabIndex = 19;
             this.txtGrade.Text = "label4";
             // 
-            // txtLeguePoints
+            // groupBox2
             // 
-            this.txtLeguePoints.AutoSize = true;
-            this.txtLeguePoints.BackColor = System.Drawing.Color.Transparent;
-            this.txtLeguePoints.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.txtLeguePoints.ForeColor = System.Drawing.Color.Snow;
-            this.txtLeguePoints.Location = new System.Drawing.Point(177, 79);
-            this.txtLeguePoints.Name = "txtLeguePoints";
-            this.txtLeguePoints.Size = new System.Drawing.Size(55, 16);
-            this.txtLeguePoints.TabIndex = 20;
-            this.txtLeguePoints.Text = "label5";
-            // 
-            // txtLeagueName
-            // 
-            this.txtLeagueName.AutoSize = true;
-            this.txtLeagueName.BackColor = System.Drawing.Color.Transparent;
-            this.txtLeagueName.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.txtLeagueName.ForeColor = System.Drawing.Color.Snow;
-            this.txtLeagueName.Location = new System.Drawing.Point(6, 122);
-            this.txtLeagueName.Name = "txtLeagueName";
-            this.txtLeagueName.Size = new System.Drawing.Size(55, 16);
-            this.txtLeagueName.TabIndex = 21;
-            this.txtLeagueName.Text = "label6";
+            this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.groupBox2.Controls.Add(this.txtTeamLeagueName);
+            this.groupBox2.Controls.Add(this.txtTeamGrade);
+            this.groupBox2.Controls.Add(this.txtTeamWinLose);
+            this.groupBox2.Controls.Add(this.txtTeamLeaguePoints);
+            this.groupBox2.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.groupBox2.ForeColor = System.Drawing.Color.Yellow;
+            this.groupBox2.Location = new System.Drawing.Point(589, 70);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(348, 171);
+            this.groupBox2.TabIndex = 15;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "자유 랭크";
             // 
             // txtTeamLeagueName
             // 
@@ -200,17 +189,17 @@
             this.txtTeamLeagueName.TabIndex = 26;
             this.txtTeamLeagueName.Text = "label6";
             // 
-            // txtTeamLeaguePoints
+            // txtTeamGrade
             // 
-            this.txtTeamLeaguePoints.AutoSize = true;
-            this.txtTeamLeaguePoints.BackColor = System.Drawing.Color.Transparent;
-            this.txtTeamLeaguePoints.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.txtTeamLeaguePoints.ForeColor = System.Drawing.Color.White;
-            this.txtTeamLeaguePoints.Location = new System.Drawing.Point(201, 83);
-            this.txtTeamLeaguePoints.Name = "txtTeamLeaguePoints";
-            this.txtTeamLeaguePoints.Size = new System.Drawing.Size(55, 16);
-            this.txtTeamLeaguePoints.TabIndex = 25;
-            this.txtTeamLeaguePoints.Text = "label5";
+            this.txtTeamGrade.AutoSize = true;
+            this.txtTeamGrade.BackColor = System.Drawing.Color.Transparent;
+            this.txtTeamGrade.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtTeamGrade.ForeColor = System.Drawing.Color.White;
+            this.txtTeamGrade.Location = new System.Drawing.Point(30, 83);
+            this.txtTeamGrade.Name = "txtTeamGrade";
+            this.txtTeamGrade.Size = new System.Drawing.Size(56, 16);
+            this.txtTeamGrade.TabIndex = 24;
+            this.txtTeamGrade.Text = "label4";
             // 
             // txtTeamWinLose
             // 
@@ -224,17 +213,29 @@
             this.txtTeamWinLose.TabIndex = 23;
             this.txtTeamWinLose.Text = "label3";
             // 
-            // txtTeamGrade
+            // txtTeamLeaguePoints
             // 
-            this.txtTeamGrade.AutoSize = true;
-            this.txtTeamGrade.BackColor = System.Drawing.Color.Transparent;
-            this.txtTeamGrade.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.txtTeamGrade.ForeColor = System.Drawing.Color.White;
-            this.txtTeamGrade.Location = new System.Drawing.Point(30, 83);
-            this.txtTeamGrade.Name = "txtTeamGrade";
-            this.txtTeamGrade.Size = new System.Drawing.Size(56, 16);
-            this.txtTeamGrade.TabIndex = 24;
-            this.txtTeamGrade.Text = "label4";
+            this.txtTeamLeaguePoints.AutoSize = true;
+            this.txtTeamLeaguePoints.BackColor = System.Drawing.Color.Transparent;
+            this.txtTeamLeaguePoints.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.txtTeamLeaguePoints.ForeColor = System.Drawing.Color.White;
+            this.txtTeamLeaguePoints.Location = new System.Drawing.Point(201, 83);
+            this.txtTeamLeaguePoints.Name = "txtTeamLeaguePoints";
+            this.txtTeamLeaguePoints.Size = new System.Drawing.Size(55, 16);
+            this.txtTeamLeaguePoints.TabIndex = 25;
+            this.txtTeamLeaguePoints.Text = "label5";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("한컴 쿨재즈 L", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.ForeColor = System.Drawing.Color.Fuchsia;
+            this.label1.Location = new System.Drawing.Point(438, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(150, 49);
+            this.label1.TabIndex = 16;
+            this.label1.Text = "소환사명";
             // 
             // textBox1
             // 
@@ -261,6 +262,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmSummoner";
             this.Text = "FrmSummoner";
+            this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.Load += new System.EventHandler(this.FrmSummoner_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);

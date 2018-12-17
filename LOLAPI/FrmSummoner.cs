@@ -35,6 +35,8 @@ namespace LOLAPI
         private List<Matches> lstMatches = new List<Matches>();
         private List<Player> lstPlayer = new List<Player>();
         private List<MatchInf> lstMatInf = new List<MatchInf>();
+        private DataTable addrTab;
+
 
         public FrmSummoner()
         {
@@ -54,7 +56,10 @@ namespace LOLAPI
         private void FrmSummoner_Load(object sender, EventArgs e)
         {
             ParsingSummonerCode();
-            ParsingSummonerRank();
+            if (!ParsingSummonerRank())
+            {
+                return;
+            }
             ParsingMatches();
             ParsingPlayer();
             this.txtLevel.Text = "레벨 : " + lstV4[0].SummonerLevel;
@@ -76,6 +81,43 @@ namespace LOLAPI
                     this.txtTeamLeagueName.Text = lstRank[i].LeagueName;
                 }
             }
+            addrTab = new DataTable();
+            addrTab.Columns.Add("승/패");
+            addrTab.Columns.Add("챔피언");
+            addrTab.Columns.Add("K D A");
+            addrTab.Columns.Add("스펠");
+            addrTab.Columns.Add("아이템");
+            addrTab.Columns.Add("골드수급");
+            addrTab.Columns.Add("딜량");
+            addrTab.Columns.Add("피해량");
+
+
+            for (int i = 0; i < lstPlayer.Count; i++)
+            {
+                if (lstPlayer[i].SummonerName == searchName)
+                {
+                    DataRow row = addrTab.NewRow();
+                    if (lstPlayer[i].Win == true)
+                    {
+                        row["승/패"] = "승";
+                    }
+                    else
+                    {
+                        row["승/패"] = "패";
+                    }
+                    row["챔피언"] = lstPlayer[i].ChampionId;
+                    row["K D A"] = lstPlayer[i].Kills + " / " + lstPlayer[i].Deaths + " / " + lstPlayer[i].Assists;
+                    row["스펠"] = lstPlayer[i].Spell1Id + " / " + lstPlayer[i].Spell2Id;
+                    row["아이템"] = lstPlayer[i].Item0 + " / " + lstPlayer[i].Item1 + " / " + lstPlayer[i].Item2 + " / " + lstPlayer[i].Item3 + " / " + lstPlayer[i].Item4 + " / " + lstPlayer[i].Item5 + " / " + lstPlayer[i].Item6;
+                    row["골드수급"] = lstPlayer[i].GoldEarned + " Gold";
+                    row["딜량"] = lstPlayer[i].TotalDamageDealtToChampions;
+                    row["피해량"] = lstPlayer[i].TotalDamageTaken;
+                    
+                    addrTab.Rows.Add(row);
+                    //dataGridView1.Rows.Add(row);
+                }
+            }
+            this.dataGridView1.DataSource = addrTab;
         }
 
         private void ParsingPlayer()
@@ -117,12 +159,20 @@ namespace LOLAPI
 
             for (int i = 0; i < 10; i++)
             {
-                var url = "https://kr.api.riotgames.com/lol/match/v4/matches/" + lstMatches[i].GameId + "?api_key=RGAPI-6fa8d8d0-1636-4b98-97e5-724bae313026";
-                var req = (HttpWebRequest)WebRequest.Create(url);
-                var res = (HttpWebResponse)req.GetResponse();
-                var stream = res.GetResponseStream();
-                var sr = new StreamReader(stream, Encoding.UTF8);
-                playerJson = sr.ReadToEnd();
+                try
+                {
+                    var url = "https://kr.api.riotgames.com/lol/match/v4/matches/" + lstMatches[i].GameId + "?api_key=RGAPI-8a672ee7-ec31-490a-ac81-cfb7e9f6ca58";
+                    var req = (HttpWebRequest)WebRequest.Create(url);
+                    var res = (HttpWebResponse)req.GetResponse();
+                    var stream = res.GetResponseStream();
+                    var sr = new StreamReader(stream, Encoding.UTF8);
+                    playerJson = sr.ReadToEnd();
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    MessageBox.Show("매치기록이 오래되었거나 없는 사용자입니다");
+                    return;
+                }
 
 
                 var jObj = JObject.Parse(playerJson);
@@ -170,12 +220,19 @@ namespace LOLAPI
                     item4 = Int32.Parse(item["stats"]["item4"].ToString());
                     item5 = Int32.Parse(item["stats"]["item5"].ToString());
                     item6 = Int32.Parse(item["stats"]["item6"].ToString());
-                    perk0 = Int32.Parse(item["stats"]["perk0"].ToString());
-                    perk1 = Int32.Parse(item["stats"]["perk1"].ToString());
-                    perk2 = Int32.Parse(item["stats"]["perk2"].ToString());
-                    perk3 = Int32.Parse(item["stats"]["perk3"].ToString());
-                    perk4 = Int32.Parse(item["stats"]["perk4"].ToString());
-                    perk5 = Int32.Parse(item["stats"]["perk5"].ToString());
+                    try
+                    {
+                        perk0 = Int32.Parse(item["stats"]["perk0"].ToString());
+                        perk1 = Int32.Parse(item["stats"]["perk1"].ToString());
+                        perk2 = Int32.Parse(item["stats"]["perk2"].ToString());
+                        perk3 = Int32.Parse(item["stats"]["perk3"].ToString());
+                        perk4 = Int32.Parse(item["stats"]["perk4"].ToString());
+                        perk5 = Int32.Parse(item["stats"]["perk5"].ToString());
+                    }
+                    catch (NullReferenceException)
+                    {
+                        continue;
+                    }
                     playerwin = bool.Parse(item["stats"]["win"].ToString());
                     spell1Id = Int32.Parse(item["spell1Id"].ToString());
                     spell2Id = Int32.Parse(item["spell2Id"].ToString());
@@ -186,26 +243,26 @@ namespace LOLAPI
                         Kills = kills,
                         Assists = assists,
                         Deaths = deaths,
-                        GoldEarned= goldEarned,
-                        TotalDamageDealtToChampions=totalDamageDealtToChampions,
-                        TotalDamageTaken=totalDamageTaken,
-                        Item0=item0,
-                        Item1=item1,
-                        Item2=item2,
-                        Item3=item3,
-                        Item4=item4,
-                        Item5=item5,
-                        Item6=item6,
-                        Perk0=perk0,
-                        Perk1=perk1,
-                        Perk2=perk2,
-                        Perk3=perk3,
-                        Perk4=perk4,
-                        Perk5=perk5,
-                        Win=playerwin,
-                        Spell1Id=spell1Id,
-                        Spell2Id=spell2Id,
-                        ChampionId=championId
+                        GoldEarned = goldEarned,
+                        TotalDamageDealtToChampions = totalDamageDealtToChampions,
+                        TotalDamageTaken = totalDamageTaken,
+                        Item0 = item0,
+                        Item1 = item1,
+                        Item2 = item2,
+                        Item3 = item3,
+                        Item4 = item4,
+                        Item5 = item5,
+                        Item6 = item6,
+                        Perk0 = perk0,
+                        Perk1 = perk1,
+                        Perk2 = perk2,
+                        Perk3 = perk3,
+                        Perk4 = perk4,
+                        Perk5 = perk5,
+                        Win = playerwin,
+                        Spell1Id = spell1Id,
+                        Spell2Id = spell2Id,
+                        ChampionId = championId
                     };
                     lstplayer2.Add(p1);
                 }
@@ -292,14 +349,16 @@ namespace LOLAPI
                 lstPlayer[i].ChampionId = lstplayer2[i].ChampionId;
             }
             //this.dataGridView1.DataSource = lstMatInf;
-            this.dataGridView1.DataSource = lstPlayer;
+            //this.dataGridView1.DataSource = lstPlayer;
         }
+
 
         private void ParsingMatches()
         {
-            var url = "https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + lstV4[0].AccountId + "?api_key=RGAPI-6fa8d8d0-1636-4b98-97e5-724bae313026";
-            var req = (HttpWebRequest)WebRequest.Create(url);
+            string lane;
 
+            var url = "https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + lstV4[0].AccountId + "?api_key=RGAPI-8a672ee7-ec31-490a-ac81-cfb7e9f6ca58";
+            var req = (HttpWebRequest)WebRequest.Create(url);
             try
             {
                 var res = (HttpWebResponse)req.GetResponse();
@@ -318,7 +377,7 @@ namespace LOLAPI
             }
             catch (WebException)
             {
-                MessageBox.Show("매치기록 정보 없음");
+                MessageBox.Show("매치기록이 오래되었거나 없는 사용자입니다");
                 return;
             }
 
@@ -327,7 +386,15 @@ namespace LOLAPI
 
             foreach (JObject item in itemsArr)
             {
-                string lane = item["lane"].ToString();
+                try
+                {
+                    lane = item["lane"].ToString();
+
+                }
+                catch (NullReferenceException)
+                {
+                    continue;
+                }
                 string gameId = item["gameId"].ToString();
                 int champion = Int32.Parse(item["champion"].ToString());
                 string platformId = item["platformId"].ToString();
@@ -351,13 +418,12 @@ namespace LOLAPI
             }
             //this.dataGridView1.DataSource = lstMatches;
         }
-        private void ParsingSummonerRank()
+        private bool ParsingSummonerRank()
         {
-            var url = "https://kr.api.riotgames.com/lol/league/v4/positions/by-summoner/" + lstV4[0].Id + "?api_key=RGAPI-6fa8d8d0-1636-4b98-97e5-724bae313026";
-            var req = (HttpWebRequest)WebRequest.Create(url);
-
             try
             {
+                var url = "https://kr.api.riotgames.com/lol/league/v4/positions/by-summoner/" + lstV4[0].Id + "?api_key=RGAPI-8a672ee7-ec31-490a-ac81-cfb7e9f6ca58";
+                var req = (HttpWebRequest)WebRequest.Create(url);
                 var res = (HttpWebResponse)req.GetResponse();
                 var statusCode = res.StatusCode.ToString();
                 if (statusCode == "OK")
@@ -373,10 +439,11 @@ namespace LOLAPI
                     MessageBox.Show("에러" + statusCode);
                 }
             }
-            catch (WebException)
+            catch (ArgumentOutOfRangeException)
             {
                 MessageBox.Show("찾으시는 소환사의 랭크정보가 없습니다");
-                return;
+
+                return false;
             }
 
             var jObj = JToken.Parse(summonerRankJson);
@@ -442,13 +509,14 @@ namespace LOLAPI
 
                 //this.dataGridView1.DataSource = lstRank;
             }
+            return true;
 
         }
 
         private void ParsingSummonerCode()
         {
-            var url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + searchName + "?api_key=RGAPI-6fa8d8d0-1636-4b98-97e5-724bae313026";
-            var url2 = "https://kr.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + searchName + "?api_key=RGAPI-6fa8d8d0-1636-4b98-97e5-724bae313026";
+            var url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + searchName + "?api_key=RGAPI-8a672ee7-ec31-490a-ac81-cfb7e9f6ca58";
+            var url2 = "https://kr.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + searchName + "?api_key=RGAPI-8a672ee7-ec31-490a-ac81-cfb7e9f6ca58";
             var req = (HttpWebRequest)WebRequest.Create(url);
             var req2 = (HttpWebRequest)WebRequest.Create(url2);
 
