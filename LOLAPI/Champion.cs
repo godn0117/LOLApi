@@ -225,12 +225,19 @@ namespace LOLAPI
         }
 
 
-        private Spells spell;
+        private Spells[] spell;
 
-        public Spells Spell
+        public Spells[] Spell
         {
             get { return spell; }
             set { spell = value; }
+        }
+        private Passive passive;
+
+        public Passive Passive
+        {
+            get { return passive; }
+            set { passive = value; }
         }
 
 

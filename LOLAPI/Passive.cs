@@ -6,18 +6,12 @@ using System.Threading.Tasks;
 
 namespace LOLAPI
 {
-    class Spells
+    class Passive
     {
-        private string id;
-
-        public string Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
         private string name;
 
         public string Name
+
         {
             get { return name; }
             set { name = value; }
@@ -28,28 +22,6 @@ namespace LOLAPI
         {
             get { return description; }
             set { description = value; }
-        }
-        private string tooltip;
-
-        public string Tooltip
-        {
-            get { return tooltip; }
-            set { tooltip = value; }
-        }
-
-        private int[] cost;
-
-        public int[] Cost
-        {
-            get { return cost; }
-            set { cost = value; }
-        }
-        private int[] range;
-
-        public int[] Range
-        {
-            get { return range; }
-            set { range = value; }
         }
         private string full;
 

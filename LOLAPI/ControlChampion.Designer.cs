@@ -49,7 +49,6 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -59,7 +58,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.panel3);
@@ -111,6 +109,7 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "간략히 보기";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // panel3
             // 
@@ -128,7 +127,7 @@
             this.listView1.Size = new System.Drawing.Size(920, 320);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.SmallIcon;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // panel2
             // 
@@ -259,14 +258,6 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(260, 156);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(202, 64);
-            this.textBox2.TabIndex = 5;
-            // 
             // ControlChampion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -311,6 +302,5 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.TextBox textBox2;
     }
 }
