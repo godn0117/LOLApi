@@ -23,6 +23,7 @@ namespace LOLAPI
             set { summonerName = value; }
         }
 
+        int playTimeIndex;
         string searchName;
         string json;
         string json2;
@@ -82,6 +83,7 @@ namespace LOLAPI
                 }
             }
             resultTab = new DataTable();
+            resultTab.Columns.Add("플레이");
             resultTab.Columns.Add("승/패");
             resultTab.Columns.Add("챔피언");
             resultTab.Columns.Add("K D A");
@@ -92,8 +94,11 @@ namespace LOLAPI
             resultTab.Columns.Add("피해량");
 
 
+
+
             for (int i = 0; i < lstPlayer.Count; i++)
             {
+                playTimeIndex = i / 10;
                 if (lstPlayer[i].SummonerName == searchName)
                 {
                     DataRow row = resultTab.NewRow();
@@ -114,10 +119,34 @@ namespace LOLAPI
                     row["피해량"] = lstPlayer[i].TotalDamageTaken;
 
                     resultTab.Rows.Add(row);
+
                     //dataGridView1.Rows.Add(row);
                 }
             }
+            for (int i = 0; i <= playTimeIndex; i++)
+            {
+                resultTab.Rows[i]["플레이"] = UnixTimeStampToDateTime((double)lstMatches[i].Timestamp);
+            }
             this.dataGridView1.DataSource = resultTab;
+            for (int i = 0; i <= playTimeIndex; i++)
+            {
+                for (int j = 0; j < resultTab.Columns.Count; j++)
+                {
+                    if (dataGridView1.Rows[i].Cells[2].ToString()=="승")
+                    {
+                        this.dataGridView1.Rows[i].Cells[j].Style.BackColor = Color.Blue;
+
+                    }
+                }
+            }
+        }
+
+        public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+        {
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            DateTime dt = new DateTime();
+            dt = dtDateTime.AddMilliseconds(unixTimeStamp).ToLocalTime();
+            return dt;
         }
 
         private void ParsingPlayer()
@@ -161,7 +190,7 @@ namespace LOLAPI
             {
                 try
                 {
-                    var url = "https://kr.api.riotgames.com/lol/match/v4/matches/" + lstMatches[i].GameId + "?api_key=RGAPI-8a672ee7-ec31-490a-ac81-cfb7e9f6ca58";
+                    var url = "https://kr.api.riotgames.com/lol/match/v4/matches/" + lstMatches[i].GameId + "?api_key=RGAPI-e6d61569-0d24-4614-a910-65ded9e59901";
                     var req = (HttpWebRequest)WebRequest.Create(url);
                     var res = (HttpWebResponse)req.GetResponse();
                     var stream = res.GetResponseStream();
@@ -357,7 +386,7 @@ namespace LOLAPI
         {
             string lane;
 
-            var url = "https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + lstV4[0].AccountId + "?api_key=RGAPI-8a672ee7-ec31-490a-ac81-cfb7e9f6ca58";
+            var url = "https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + lstV4[0].AccountId + "?api_key=RGAPI-e6d61569-0d24-4614-a910-65ded9e59901";
             var req = (HttpWebRequest)WebRequest.Create(url);
             try
             {
@@ -398,7 +427,7 @@ namespace LOLAPI
                 string gameId = item["gameId"].ToString();
                 int champion = Int32.Parse(item["champion"].ToString());
                 string platformId = item["platformId"].ToString();
-                string timestamp = item["timestamp"].ToString();
+                double timestamp = Double.Parse(item["timestamp"].ToString());
                 int queue = Int32.Parse(item["queue"].ToString());
                 string role = item["role"].ToString();
                 int season = Int32.Parse(item["season"].ToString());
@@ -422,7 +451,7 @@ namespace LOLAPI
         {
             try
             {
-                var url = "https://kr.api.riotgames.com/lol/league/v4/positions/by-summoner/" + lstV4[0].Id + "?api_key=RGAPI-8a672ee7-ec31-490a-ac81-cfb7e9f6ca58";
+                var url = "https://kr.api.riotgames.com/lol/league/v4/positions/by-summoner/" + lstV4[0].Id + "?api_key=RGAPI-e6d61569-0d24-4614-a910-65ded9e59901";
                 var req = (HttpWebRequest)WebRequest.Create(url);
                 var res = (HttpWebResponse)req.GetResponse();
                 var statusCode = res.StatusCode.ToString();
@@ -515,8 +544,8 @@ namespace LOLAPI
 
         private void ParsingSummonerCode()
         {
-            var url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + searchName + "?api_key=RGAPI-8a672ee7-ec31-490a-ac81-cfb7e9f6ca58";
-            var url2 = "https://kr.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + searchName + "?api_key=RGAPI-8a672ee7-ec31-490a-ac81-cfb7e9f6ca58";
+            var url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + searchName + "?api_key=RGAPI-e6d61569-0d24-4614-a910-65ded9e59901";
+            var url2 = "https://kr.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + searchName + "?api_key=RGAPI-e6d61569-0d24-4614-a910-65ded9e59901";
             var req = (HttpWebRequest)WebRequest.Create(url);
             var req2 = (HttpWebRequest)WebRequest.Create(url2);
 
@@ -690,25 +719,25 @@ namespace LOLAPI
                 controlMatchInfo1.lblWin.ForeColor = Color.PaleVioletRed;
             }
 
-            int sumDragon = lstMatInf[matchIndexNum].DragonKills + lstMatInf[matchIndexNum+1].DragonKills;
-            int sumBaron = lstMatInf[matchIndexNum].BaronKills + lstMatInf[matchIndexNum+1].BaronKills;
-            int sumTower = lstMatInf[matchIndexNum].TowerKills + lstMatInf[matchIndexNum+1].TowerKills;
-            int sumInhibitor = lstMatInf[matchIndexNum].InhibitorKills + lstMatInf[matchIndexNum+1].InhibitorKills;
+            int sumDragon = lstMatInf[matchIndexNum].DragonKills + lstMatInf[matchIndexNum + 1].DragonKills;
+            int sumBaron = lstMatInf[matchIndexNum].BaronKills + lstMatInf[matchIndexNum + 1].BaronKills;
+            int sumTower = lstMatInf[matchIndexNum].TowerKills + lstMatInf[matchIndexNum + 1].TowerKills;
+            int sumInhibitor = lstMatInf[matchIndexNum].InhibitorKills + lstMatInf[matchIndexNum + 1].InhibitorKills;
             //this.controlMatchDetail1.lblSumObject.Text = "총 드래곤 : " + sumDragon + " 총 바론 : " + sumBaron+"\n" +  "총 타워파괴 : " + sumTower + " 총 억제기 파괴 : " + sumInhibitor;
             this.controlMatchDetail1.label10.Text = "총 드래곤 : " + sumDragon;
             this.controlMatchDetail1.label12.Text = " 총 바론 : " + sumBaron;
             this.controlMatchDetail1.label9.Text = "총 타워파괴 : " + sumTower;
-            this.controlMatchDetail1.label11.Text= " 총 억제기 파괴 : " + sumInhibitor;
+            this.controlMatchDetail1.label11.Text = " 총 억제기 파괴 : " + sumInhibitor;
 
             this.controlMatchDetail1.lblBlueDragon.Text = "드래곤 : " + lstMatInf[matchIndexNum].DragonKills;
             this.controlMatchDetail1.lblBlueBaron.Text = "바론 : " + lstMatInf[matchIndexNum].BaronKills;
             this.controlMatchDetail1.lblBlueTower.Text = "타워 : " + lstMatInf[matchIndexNum].TowerKills;
             this.controlMatchDetail1.lblBlueInhibitor.Text = "억제기 : " + lstMatInf[matchIndexNum].InhibitorKills;
 
-            this.controlMatchDetail1.lblRedDragon.Text = "드래곤 : " + lstMatInf[matchIndexNum+1].DragonKills;
-            this.controlMatchDetail1.lblRedBaron.Text = "바론 : " + lstMatInf[matchIndexNum+1].BaronKills;
-            this.controlMatchDetail1.lblRedTower.Text = "타워 : " + lstMatInf[matchIndexNum+1].TowerKills;
-            this.controlMatchDetail1.lblRedInhibitor.Text = "억제기 : " + lstMatInf[matchIndexNum+1].InhibitorKills;
+            this.controlMatchDetail1.lblRedDragon.Text = "드래곤 : " + lstMatInf[matchIndexNum + 1].DragonKills;
+            this.controlMatchDetail1.lblRedBaron.Text = "바론 : " + lstMatInf[matchIndexNum + 1].BaronKills;
+            this.controlMatchDetail1.lblRedTower.Text = "타워 : " + lstMatInf[matchIndexNum + 1].TowerKills;
+            this.controlMatchDetail1.lblRedInhibitor.Text = "억제기 : " + lstMatInf[matchIndexNum + 1].InhibitorKills;
 
             if (lstMatInf[matchIndexNum].FirstDragon)
             {
@@ -760,5 +789,7 @@ namespace LOLAPI
         {
             this.controlMatchDetail1.Visible = false;
         }
+
+
     }
 }

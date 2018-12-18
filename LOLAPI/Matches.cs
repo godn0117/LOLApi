@@ -36,9 +36,9 @@ namespace LOLAPI
             get { return platformId; }
             set { platformId = value; }
         }
-        private string timestamp;
+        private double timestamp;
 
-        public string Timestamp
+        public double Timestamp
         {
             get { return timestamp; }
             set { timestamp = value; }
