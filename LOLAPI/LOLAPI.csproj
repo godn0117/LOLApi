@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,8 +48,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,10 +72,11 @@
     <Compile Include="ControlChampion.Designer.cs">
       <DependentUpon>ControlChampion.cs</DependentUpon>
     </Compile>
-    <Compile Include="controlItems.cs">
+    <Compile Include="DB\SpellDB.cs" />
+    <Compile Include="Item\controlItems.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="controlItems.Designer.cs">
+    <Compile Include="Item\controlItems.Designer.cs">
       <DependentUpon>controlItems.cs</DependentUpon>
     </Compile>
     <Compile Include="controlRune.cs">
@@ -64,12 +85,15 @@
     <Compile Include="controlRune.Designer.cs">
       <DependentUpon>controlRune.cs</DependentUpon>
     </Compile>
-    <Compile Include="controlSpell.cs">
+    <Compile Include="JSON\JsonWork.cs" />
+    <Compile Include="Spell\controlSpell.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="controlSpell.Designer.cs">
+    <Compile Include="Spell\controlSpell.Designer.cs">
       <DependentUpon>controlSpell.cs</DependentUpon>
     </Compile>
+    <Compile Include="DB\ItemDB.cs" />
+    <Compile Include="DBConnection.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +106,14 @@
     <Compile Include="FrmSummoner.Designer.cs">
       <DependentUpon>FrmSummoner.cs</DependentUpon>
     </Compile>
+    <Compile Include="Item\DetailItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Item\DetailItem.Designer.cs">
+      <DependentUpon>DetailItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Item\LOLItem.cs" />
+    <Compile Include="DB\VersionDB.cs" />
     <Compile Include="MainControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -90,16 +122,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spell\Spell.cs" />
+    <Compile Include="Version\Version.cs" />
     <EmbeddedResource Include="ControlChampion.resx">
       <DependentUpon>ControlChampion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="controlItems.resx">
+    <EmbeddedResource Include="Item\controlItems.resx">
       <DependentUpon>controlItems.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="controlRune.resx">
       <DependentUpon>controlRune.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="controlSpell.resx">
+    <EmbeddedResource Include="Spell\controlSpell.resx">
       <DependentUpon>controlSpell.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
@@ -107,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmSummoner.resx">
       <DependentUpon>FrmSummoner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Item\DetailItem.resx">
+      <DependentUpon>DetailItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainControl.resx">
       <DependentUpon>MainControl.cs</DependentUpon>
@@ -121,8 +158,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="Champions.json" />
-    <None Include="items.json" />
+    <None Include="JSON\Champions.json" />
+    <None Include="JSON\items.json" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -132,15 +170,38 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Runes.json" />
-    <None Include="Spells.json" />
-    <None Include="Version.json" />
+    <None Include="JSON\Runes.json" />
+    <None Include="JSON\Spells.json" />
+    <None Include="JSON\Version.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\KakaoTalk_20181211_202916226.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LOLData.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LOLData_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>LOLData.mdf</DependentUpon>
+    </Content>
+    <Content Include="Resources\111.PNG" />
+    <None Include="Resources\1111.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1%28x86 및 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
