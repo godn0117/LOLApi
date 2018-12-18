@@ -132,13 +132,26 @@ namespace LOLAPI
             {
                 for (int j = 0; j < resultTab.Columns.Count; j++)
                 {
-                    if (dataGridView1.Rows[i].Cells[2].ToString()=="승")
+                    if (dataGridView1.Rows[i].Cells[1].Value.ToString()=="승")
                     {
-                        this.dataGridView1.Rows[i].Cells[j].Style.BackColor = Color.Blue;
-
+                        this.dataGridView1.Rows[i].Cells[j].Style.BackColor = Color.CornflowerBlue;
+                        this.dataGridView1.Rows[i].Cells[1].Style.Font = new Font("Verdana", 13, FontStyle.Bold);
+                        this.dataGridView1.Rows[i].Cells[3].Style.Font = new Font("Verdana", 9, FontStyle.Bold);
+                    }
+                    else if (dataGridView1.Rows[i].Cells[1].Value.ToString() == "패")
+                    {
+                        this.dataGridView1.Rows[i].Cells[j].Style.BackColor = Color.PaleVioletRed;
+                        this.dataGridView1.Rows[i].Cells[1].Style.Font = new Font("Verdana", 13, FontStyle.Bold);
+                        this.dataGridView1.Rows[i].Cells[3].Style.Font = new Font("Verdana", 9, FontStyle.Bold);
+                    }
+                    else
+                    {
+                        this.dataGridView1.Rows[i].Cells[j].Style.BackColor = Color.SlateGray;
                     }
                 }
             }
+            dataGridView1.EnableHeadersVisualStyles = false;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightYellow;
         }
 
         public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
@@ -713,10 +726,14 @@ namespace LOLAPI
                 controlMatchInfo1.lblWin.Text = "블루팀 승리";
                 controlMatchInfo1.lblWin.ForeColor = Color.CornflowerBlue;
             }
-            else
+            else if(lstMatInf[matchIndexNum+1].Win == "Win")
             {
                 controlMatchInfo1.lblWin.Text = "레드팀 승리";
                 controlMatchInfo1.lblWin.ForeColor = Color.PaleVioletRed;
+            }
+            else
+            {
+                controlMatchInfo1.lblWin.Text = "다시하기 및 탈주";
             }
 
             int sumDragon = lstMatInf[matchIndexNum].DragonKills + lstMatInf[matchIndexNum + 1].DragonKills;
@@ -744,10 +761,15 @@ namespace LOLAPI
                 this.controlMatchDetail1.lblDragon.Text = "첫 드래곤 : 블루팀";
                 this.controlMatchDetail1.lblDragon.ForeColor = Color.Blue;
             }
-            else
+            else if(lstMatInf[matchIndexNum+1].FirstDragon)
             {
                 this.controlMatchDetail1.lblDragon.Text = "첫 드래곤 : 레드팀";
                 this.controlMatchDetail1.lblDragon.ForeColor = Color.Red;
+            }
+            else
+            {
+                this.controlMatchDetail1.lblDragon.Text = "첫 드래곤 : X";
+                this.controlMatchDetail1.lblDragon.ForeColor = Color.GreenYellow;
             }
 
             if (lstMatInf[matchIndexNum].FirstBaron)
@@ -755,10 +777,16 @@ namespace LOLAPI
                 this.controlMatchDetail1.lblBaron.Text = "첫 바론 : 블루팀";
                 this.controlMatchDetail1.lblBaron.ForeColor = Color.Blue;
             }
-            else
+            else if(lstMatInf[matchIndexNum+1].FirstBaron)
             {
                 this.controlMatchDetail1.lblBaron.Text = "첫 바론 : 레드팀";
                 this.controlMatchDetail1.lblBaron.ForeColor = Color.Red;
+            }
+            else
+            {
+                this.controlMatchDetail1.lblBaron.Text = "첫 바론 : X";
+                this.controlMatchDetail1.lblBaron.ForeColor = Color.GreenYellow;
+
             }
 
             if (lstMatInf[matchIndexNum].FirstTower)
@@ -766,10 +794,15 @@ namespace LOLAPI
                 this.controlMatchDetail1.lblTower.Text = "첫 타워 : 블루팀";
                 this.controlMatchDetail1.lblTower.ForeColor = Color.Blue;
             }
-            else
+            else if(lstMatInf[matchIndexNum+1].FirstTower)
             {
                 this.controlMatchDetail1.lblTower.Text = "첫 타워 : 레드팀";
                 this.controlMatchDetail1.lblTower.ForeColor = Color.Red;
+            }
+            else
+            {
+                this.controlMatchDetail1.lblTower.Text = "첫 타워 : X";
+                this.controlMatchDetail1.lblTower.ForeColor = Color.GreenYellow;
             }
 
             if (lstMatInf[matchIndexNum].FirstInhibitor)
@@ -777,19 +810,20 @@ namespace LOLAPI
                 this.controlMatchDetail1.lblInhibitor.Text = "첫 억제기 : 블루팀";
                 this.controlMatchDetail1.lblInhibitor.ForeColor = Color.Blue;
             }
-            else
+            else if(lstMatInf[matchIndexNum+1].FirstInhibitor)
             {
                 this.controlMatchDetail1.lblInhibitor.Text = "첫 억제기 : 레드팀";
                 this.controlMatchDetail1.lblInhibitor.ForeColor = Color.Red;
             }
-
+            else
+            {
+                this.controlMatchDetail1.lblInhibitor.Text = "첫 억제기 : X";
+                this.controlMatchDetail1.lblInhibitor.ForeColor = Color.GreenYellow;
+            }
         }
-
         private void Button1_Click(object sender, EventArgs e)
         {
             this.controlMatchDetail1.Visible = false;
         }
-
-
     }
 }

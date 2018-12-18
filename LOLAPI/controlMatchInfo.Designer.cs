@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtObjectRed = new System.Windows.Forms.TextBox();
             this.lblWin = new System.Windows.Forms.Label();
+            this.txtGameTime = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBlueTeam)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRedTeam)).BeginInit();
             this.SuspendLayout();
@@ -79,7 +80,7 @@
             this.txtObjectBlue.Location = new System.Drawing.Point(4, 242);
             this.txtObjectBlue.Multiline = true;
             this.txtObjectBlue.Name = "txtObjectBlue";
-            this.txtObjectBlue.Size = new System.Drawing.Size(399, 48);
+            this.txtObjectBlue.Size = new System.Drawing.Size(314, 48);
             this.txtObjectBlue.TabIndex = 4;
             // 
             // label1
@@ -96,10 +97,10 @@
             // txtObjectRed
             // 
             this.txtObjectRed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.txtObjectRed.Location = new System.Drawing.Point(411, 242);
+            this.txtObjectRed.Location = new System.Drawing.Point(495, 242);
             this.txtObjectRed.Multiline = true;
             this.txtObjectRed.Name = "txtObjectRed";
-            this.txtObjectRed.Size = new System.Drawing.Size(399, 48);
+            this.txtObjectRed.Size = new System.Drawing.Size(314, 48);
             this.txtObjectRed.TabIndex = 7;
             // 
             // lblWin
@@ -112,12 +113,22 @@
             this.lblWin.Size = new System.Drawing.Size(0, 27);
             this.lblWin.TabIndex = 9;
             // 
+            // txtGameTime
+            // 
+            this.txtGameTime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtGameTime.Location = new System.Drawing.Point(324, 242);
+            this.txtGameTime.Multiline = true;
+            this.txtGameTime.Name = "txtGameTime";
+            this.txtGameTime.Size = new System.Drawing.Size(165, 48);
+            this.txtGameTime.TabIndex = 10;
+            // 
             // controlMatchInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Controls.Add(this.txtGameTime);
             this.Controls.Add(this.lblWin);
             this.Controls.Add(this.txtObjectRed);
             this.Controls.Add(this.label1);
@@ -144,5 +155,6 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox txtObjectRed;
         public System.Windows.Forms.Label lblWin;
+        public System.Windows.Forms.TextBox txtGameTime;
     }
 }
