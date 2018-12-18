@@ -78,14 +78,5 @@ namespace LOLAPI
         {
             Application.Exit();
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {           
-        }
-
-        private void controlSpell1_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

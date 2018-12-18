@@ -142,7 +142,6 @@
             this.controlSpell1.Name = "controlSpell1";
             this.controlSpell1.Size = new System.Drawing.Size(863, 584);
             this.controlSpell1.TabIndex = 5;
-            this.controlSpell1.Load += new System.EventHandler(this.controlSpell1_Load);
             // 
             // btnExitApi
             // 
@@ -224,7 +223,6 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ㅗ";
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);

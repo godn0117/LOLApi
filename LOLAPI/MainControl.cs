@@ -19,7 +19,7 @@ namespace LOLAPI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            FrmSummoner fs = new FrmSummoner();
+            FrmSummoner fs = new FrmSummoner(this.textBox1.Text);
             fs.ShowDialog();
         }
     }

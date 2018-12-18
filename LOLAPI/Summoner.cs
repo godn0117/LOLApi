@@ -64,9 +64,9 @@ namespace LOLAPI
             set { id = value; }
         }
 
-        private long revisionDate;
+        private string revisionDate;
 
-        public long RevisionDate
+        public string RevisionDate
         {
             get { return revisionDate; }
             set { revisionDate = value; }

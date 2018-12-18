@@ -66,18 +66,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bans.cs" />
     <Compile Include="ControlChampion.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ControlChampion.Designer.cs">
       <DependentUpon>ControlChampion.cs</DependentUpon>
     </Compile>
+    <Compile Include="DB\DBConnection.cs" />
     <Compile Include="DB\SpellDB.cs" />
     <Compile Include="Item\controlItems.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Item\controlItems.Designer.cs">
       <DependentUpon>controlItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="controlMatchDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="controlMatchDetail.Designer.cs">
+      <DependentUpon>controlMatchDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="controlMatchInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="controlMatchInfo.Designer.cs">
+      <DependentUpon>controlMatchInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="controlRune.cs">
       <SubType>UserControl</SubType>
@@ -93,7 +107,6 @@
       <DependentUpon>controlSpell.cs</DependentUpon>
     </Compile>
     <Compile Include="DB\ItemDB.cs" />
-    <Compile Include="DBConnection.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,15 +133,27 @@
     <Compile Include="MainControl.Designer.cs">
       <DependentUpon>MainControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Matches.cs" />
+    <Compile Include="MatchInf.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spell\Spell.cs" />
     <Compile Include="Version\Version.cs" />
+    <Compile Include="Summoner.cs" />
+    <Compile Include="SummonerRank.cs" />
+    <Compile Include="SummonerV3.cs" />
     <EmbeddedResource Include="ControlChampion.resx">
       <DependentUpon>ControlChampion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Item\controlItems.resx">
       <DependentUpon>controlItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="controlMatchDetail.resx">
+      <DependentUpon>controlMatchDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="controlMatchInfo.resx">
+      <DependentUpon>controlMatchInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="controlRune.resx">
       <DependentUpon>controlRune.cs</DependentUpon>
@@ -175,7 +200,9 @@
     <None Include="JSON\Version.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\KakaoTalk_20181211_202916226.jpg" />
