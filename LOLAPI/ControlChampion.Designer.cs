@@ -109,6 +109,7 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "간략히 보기";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // panel3
             // 
@@ -126,7 +127,7 @@
             this.listView1.Size = new System.Drawing.Size(920, 320);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.SmallIcon;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // panel2
             // 

@@ -23,6 +23,7 @@ namespace LOLAPI
         private void ControlChampion_Load(object sender, EventArgs e)
         {
             champions = new List<Champion>();
+            #region Json 챔피언 정보 데이터 뽑기
             string serverUrl = "http://ddragon.leagueoflegends.com/cdn/8.24.1/data/ko_KR/champion.json";
 
             var req = WebRequest.Create(serverUrl) as HttpWebRequest;
@@ -48,6 +49,7 @@ namespace LOLAPI
                 {
                     ll.Add(item2.ToString());
                 }
+                
 
                 champions.Add(new Champion { Id = id, Key = int.Parse(key), Name = name, Title = title, Blurb = blurb, Tags = ll.ToArray() });
             }
@@ -72,27 +74,114 @@ namespace LOLAPI
             {
                 chName = item.Id;
                 JObject jsonCham = ReJObject(chName);
+
+                string full = jObj["data"][chName]["image"]["full"].ToString();
+                item.Full = full;
+
                 foreach (var chamItem in JObject.Parse(jsonCham.ToString()))
                 {
+                    string[] strStat = new string[18];
+                    int i = 0;
+
                     // 스탯
                     foreach (var statsItem in statsArr)
                     {
+                        strStat[i++] = jsonCham[chName]["stats"][statsItem].ToString();
                         //MessageBox.Show(jObj["data"][chName]["stats"][statsItem].ToString());
                     }
+                    // "hp", "hpperlevel", "mp","mpperlevel","movespeed","armor","armorperlevel","spellblock",
+                    //"spellblockperlevel","attackrange","hpregen","hpregenperlevel","mpregen","mpregenperlevel",
+                    //"attackdamage","attackdamageperlevel","attackspeedperlevel","attackspeed"
+                    item.Hp = float.Parse(strStat[0]);
+                    item.Hpperlevel = float.Parse(strStat[1]);
+                    item.Mp = float.Parse(strStat[2]);
+                    item.Mpperlevel = float.Parse(strStat[3]);
+                    item.Movespeed = float.Parse(strStat[4]);
+                    item.Armor = float.Parse(strStat[5]);
+                    item.Armorperlevel = float.Parse(strStat[6]);
+                    item.Spellblock = float.Parse(strStat[7]);
+                    item.Spellblockperlevel = float.Parse(strStat[8]);
+                    item.Attackrange = float.Parse(strStat[9]);
+                    item.Hpregen = float.Parse(strStat[10]);
+                    item.Hpregenperlevel = float.Parse(strStat[11]);
+                    item.Mpregen = float.Parse(strStat[12]);
+                    item.Mpregenperlevel = float.Parse(strStat[13]);
+                    item.Attackdamage = float.Parse(strStat[14]);
+                    item.Attackdamageperlevel = float.Parse(strStat[15]);
+                    item.Attackspeed = float.Parse(strStat[16]);
+                    item.Attackspeedperlevel = float.Parse(strStat[17]);
                 }
+
                 foreach (var chamItem in JObject.Parse(jsonCham.ToString()))
                 {
-                    ChampionInfo ci = new ChampionInfo();
                     string[] strInfo = new string[4];
                     int i = 0;
                     foreach (var infoItem in infoArr)
                     {
-                        strInfo[i++] = jObj["data"][chName]["info"][infoItem].ToString();
+                        strInfo[i++] = jsonCham[chName]["info"][infoItem].ToString();
                         //MessageBox.Show(jObj["data"][chName]["info"][infoItem].ToString());
                     }
-                    
+                    item.Info = new ChampionInfo { Attack = int.Parse(strInfo[0]), Defense = int.Parse(strInfo[1]),
+                        Magic = int.Parse(strInfo[2]), Difficulty = int.Parse(strInfo[3]) };
                 }
+
+                List<Skin> skin = new List<Skin>();
+                foreach (var chamSkin in JArray.Parse(jsonCham[chName]["skins"].ToString()))
+                {
+                    skin.Add(new Skin { Num = Int32.Parse(chamSkin["num"].ToString()), Name = chamSkin["name"].ToString() });
+                }
+                item.Skin = skin.ToArray();
+
+                List<Spells> spells = new List<Spells>();
+                foreach (var chamSpell in JArray.Parse(jsonCham[chName]["spells"].ToString()))
+                {
+                    string id = chamSpell["id"].ToString();
+                    string name = chamSpell["name"].ToString();
+                    string description = chamSpell["description"].ToString();
+                    string tooltip = chamSpell["tooltip"].ToString();
+                    List<int> cost = new List<int>();
+                    foreach (var chCost in JArray.Parse(chamSpell["cost"].ToString()))
+                    {
+                        cost.Add(int.Parse(chCost.ToString()));
+                    }
+                    List<int> range = new List<int>();
+                    foreach (var chrang in JArray.Parse(chamSpell["range"].ToString()))
+                    {
+                        range.Add(int.Parse(chrang.ToString()));
+                    }
+                    string image = chamSpell["image"]["full"].ToString();
+
+                    spells.Add(new Spells { Id = id, Name = name, Description = description, Tooltip = tooltip, Cost = cost.ToArray(), Range = range.ToArray(), Full = image });
+                }
+                item.Spell = spells.ToArray();
+
+                item.Passive = new Passive
+                {
+                    Name = jsonCham[chName]["passive"]["name"].ToString(),
+                    Description = jsonCham[chName]["passive"]["description"].ToString(),
+                    Full = jsonCham[chName]["passive"]["image"]["full"].ToString()
+                };
             }
+            #endregion
+
+            #region 이미지 처리
+            Image chamImage;
+            WebClient w = new WebClient();
+            imageList1.ImageSize = new Size(64, 64);
+            string imageURL = string.Empty;
+            int imgIndex = 0;
+            foreach (var item in champions)
+            {
+                imageURL = "http://ddragon.leagueoflegends.com/cdn/8.24.1/img/champion/" + item.Full;
+                byte[] imageByte = w.DownloadData(imageURL);
+                MemoryStream imagestream = new MemoryStream(imageByte);
+                chamImage = Image.FromStream(imagestream);
+                this.imageList1.Images.Add(chamImage);
+                this.listView1.Items.Add(item.Name, imgIndex++);
+            }
+
+            this.listView1.LargeImageList = imageList1;
+            #endregion
 
             // 로딩 이미지 추가
             // http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg // 챔피언 로딩 사진
@@ -101,7 +190,7 @@ namespace LOLAPI
             // http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg // 챔피언 스킨 사진
 
             // details
-
+            
         }
 
         private JObject ReJObject(string name)
@@ -117,7 +206,7 @@ namespace LOLAPI
 
             return JObject.Parse(jObj["data"].ToString());
         }
-
+        
         #region 체크박스
         private void checkBox1_CheckedChanged(object sender, EventArgs e) // 암살자
         {
@@ -149,5 +238,24 @@ namespace LOLAPI
 
         }
         #endregion
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)   // 아이템이 선택되지 않았을 경우(선택 취소) - 예외처리
+            {
+                MessageBox.Show(listView1.SelectedItems[0].Text);
+            }
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton1.Checked)
+            {
+                this.listView1.View = View.LargeIcon;
+            }
+            else
+            {
+                this.listView1.View = View.Details;
+            }
+        }
     }
 }

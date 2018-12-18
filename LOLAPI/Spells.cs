@@ -51,6 +51,13 @@ namespace LOLAPI
             get { return range; }
             set { range = value; }
         }
+        private string full;
+
+        public string Full
+        {
+            get { return full; }
+            set { full = value; }
+        }
 
     }
 }
