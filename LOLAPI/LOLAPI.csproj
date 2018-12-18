@@ -112,6 +112,7 @@
     <Compile Include="Summoner.cs" />
     <Compile Include="SummonerRank.cs" />
     <Compile Include="SummonerV3.cs" />
+    <Compile Include="TimeStamp.cs" />
     <EmbeddedResource Include="ControlChampion.resx">
       <DependentUpon>ControlChampion.cs</DependentUpon>
     </EmbeddedResource>

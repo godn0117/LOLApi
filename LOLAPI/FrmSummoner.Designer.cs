@@ -104,9 +104,8 @@
             this.txtLeagueName.ForeColor = System.Drawing.Color.Snow;
             this.txtLeagueName.Location = new System.Drawing.Point(6, 122);
             this.txtLeagueName.Name = "txtLeagueName";
-            this.txtLeagueName.Size = new System.Drawing.Size(55, 16);
+            this.txtLeagueName.Size = new System.Drawing.Size(0, 16);
             this.txtLeagueName.TabIndex = 21;
-            this.txtLeagueName.Text = "label6";
             // 
             // txtLevel
             // 
@@ -116,9 +115,8 @@
             this.txtLevel.ForeColor = System.Drawing.Color.Snow;
             this.txtLevel.Location = new System.Drawing.Point(6, 36);
             this.txtLevel.Name = "txtLevel";
-            this.txtLevel.Size = new System.Drawing.Size(55, 16);
+            this.txtLevel.Size = new System.Drawing.Size(0, 16);
             this.txtLevel.TabIndex = 17;
-            this.txtLevel.Text = "label2";
             // 
             // txtLeguePoints
             // 
@@ -128,9 +126,8 @@
             this.txtLeguePoints.ForeColor = System.Drawing.Color.Snow;
             this.txtLeguePoints.Location = new System.Drawing.Point(177, 79);
             this.txtLeguePoints.Name = "txtLeguePoints";
-            this.txtLeguePoints.Size = new System.Drawing.Size(55, 16);
+            this.txtLeguePoints.Size = new System.Drawing.Size(0, 16);
             this.txtLeguePoints.TabIndex = 20;
-            this.txtLeguePoints.Text = "label5";
             // 
             // txtWinLose
             // 
@@ -140,9 +137,8 @@
             this.txtWinLose.ForeColor = System.Drawing.Color.Snow;
             this.txtWinLose.Location = new System.Drawing.Point(177, 36);
             this.txtWinLose.Name = "txtWinLose";
-            this.txtWinLose.Size = new System.Drawing.Size(55, 16);
+            this.txtWinLose.Size = new System.Drawing.Size(0, 16);
             this.txtWinLose.TabIndex = 18;
-            this.txtWinLose.Text = "label3";
             // 
             // txtGrade
             // 
@@ -152,9 +148,8 @@
             this.txtGrade.ForeColor = System.Drawing.Color.Snow;
             this.txtGrade.Location = new System.Drawing.Point(6, 79);
             this.txtGrade.Name = "txtGrade";
-            this.txtGrade.Size = new System.Drawing.Size(56, 16);
+            this.txtGrade.Size = new System.Drawing.Size(0, 16);
             this.txtGrade.TabIndex = 19;
-            this.txtGrade.Text = "label4";
             // 
             // groupBox2
             // 
@@ -181,9 +176,8 @@
             this.txtTeamLeagueName.ForeColor = System.Drawing.Color.White;
             this.txtTeamLeagueName.Location = new System.Drawing.Point(30, 126);
             this.txtTeamLeagueName.Name = "txtTeamLeagueName";
-            this.txtTeamLeagueName.Size = new System.Drawing.Size(55, 16);
+            this.txtTeamLeagueName.Size = new System.Drawing.Size(0, 16);
             this.txtTeamLeagueName.TabIndex = 26;
-            this.txtTeamLeagueName.Text = "label6";
             // 
             // txtTeamGrade
             // 
@@ -193,9 +187,8 @@
             this.txtTeamGrade.ForeColor = System.Drawing.Color.White;
             this.txtTeamGrade.Location = new System.Drawing.Point(30, 83);
             this.txtTeamGrade.Name = "txtTeamGrade";
-            this.txtTeamGrade.Size = new System.Drawing.Size(56, 16);
+            this.txtTeamGrade.Size = new System.Drawing.Size(0, 16);
             this.txtTeamGrade.TabIndex = 24;
-            this.txtTeamGrade.Text = "label4";
             // 
             // txtTeamWinLose
             // 
@@ -205,9 +198,8 @@
             this.txtTeamWinLose.ForeColor = System.Drawing.Color.White;
             this.txtTeamWinLose.Location = new System.Drawing.Point(30, 36);
             this.txtTeamWinLose.Name = "txtTeamWinLose";
-            this.txtTeamWinLose.Size = new System.Drawing.Size(55, 16);
+            this.txtTeamWinLose.Size = new System.Drawing.Size(0, 16);
             this.txtTeamWinLose.TabIndex = 23;
-            this.txtTeamWinLose.Text = "label3";
             // 
             // txtTeamLeaguePoints
             // 
@@ -217,9 +209,8 @@
             this.txtTeamLeaguePoints.ForeColor = System.Drawing.Color.White;
             this.txtTeamLeaguePoints.Location = new System.Drawing.Point(201, 83);
             this.txtTeamLeaguePoints.Name = "txtTeamLeaguePoints";
-            this.txtTeamLeaguePoints.Size = new System.Drawing.Size(55, 16);
+            this.txtTeamLeaguePoints.Size = new System.Drawing.Size(0, 16);
             this.txtTeamLeaguePoints.TabIndex = 25;
-            this.txtTeamLeaguePoints.Text = "label5";
             // 
             // label1
             // 

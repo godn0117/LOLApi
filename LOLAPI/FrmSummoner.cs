@@ -36,7 +36,9 @@ namespace LOLAPI
         private List<Matches> lstMatches = new List<Matches>();
         private List<Player> lstPlayer = new List<Player>();
         private List<MatchInf> lstMatInf = new List<MatchInf>();
+        private List<TimeStamp> lstTime = new List<TimeStamp>();
         private DataTable resultTab;
+        string apiKey = "RGAPI-e6d61569-0d24-4614-a910-65ded9e59901";
 
 
         public FrmSummoner()
@@ -63,6 +65,7 @@ namespace LOLAPI
             }
             ParsingMatches();
             ParsingPlayer();
+            ParsingTimeStamp();
             this.txtLevel.Text = "레벨 : " + lstV4[0].SummonerLevel;
 
             for (int i = 0; i < lstRank.Count; i++)
@@ -86,7 +89,7 @@ namespace LOLAPI
             resultTab.Columns.Add("플레이");
             resultTab.Columns.Add("승/패");
             resultTab.Columns.Add("챔피언");
-            resultTab.Columns.Add("K D A");
+            resultTab.Columns.Add("K / D / A");
             resultTab.Columns.Add("스펠");
             resultTab.Columns.Add("아이템");
             resultTab.Columns.Add("골드수급");
@@ -111,7 +114,7 @@ namespace LOLAPI
                         row["승/패"] = "패";
                     }
                     row["챔피언"] = lstPlayer[i].ChampionId;
-                    row["K D A"] = lstPlayer[i].Kills + " / " + lstPlayer[i].Deaths + " / " + lstPlayer[i].Assists;
+                    row["K / D / A"] = lstPlayer[i].Kills + " / " + lstPlayer[i].Deaths + " / " + lstPlayer[i].Assists;
                     row["스펠"] = lstPlayer[i].Spell1Id + " / " + lstPlayer[i].Spell2Id;
                     row["아이템"] = lstPlayer[i].Item0 + " / " + lstPlayer[i].Item1 + " / " + lstPlayer[i].Item2 + " / " + lstPlayer[i].Item3 + " / " + lstPlayer[i].Item4 + " / " + lstPlayer[i].Item5 + " / " + lstPlayer[i].Item6;
                     row["골드수급"] = lstPlayer[i].GoldEarned + " Gold";
@@ -132,15 +135,15 @@ namespace LOLAPI
             {
                 for (int j = 0; j < resultTab.Columns.Count; j++)
                 {
-                    if (dataGridView1.Rows[i].Cells[1].Value.ToString()=="승")
+                    if (dataGridView1.Rows[i].Cells[1].Value.ToString() == "승")
                     {
-                        this.dataGridView1.Rows[i].Cells[j].Style.BackColor = Color.CornflowerBlue;
+                        this.dataGridView1.Rows[i].Cells[j].Style.BackColor = Color.SkyBlue;
                         this.dataGridView1.Rows[i].Cells[1].Style.Font = new Font("Verdana", 13, FontStyle.Bold);
                         this.dataGridView1.Rows[i].Cells[3].Style.Font = new Font("Verdana", 9, FontStyle.Bold);
                     }
                     else if (dataGridView1.Rows[i].Cells[1].Value.ToString() == "패")
                     {
-                        this.dataGridView1.Rows[i].Cells[j].Style.BackColor = Color.PaleVioletRed;
+                        this.dataGridView1.Rows[i].Cells[j].Style.BackColor = Color.Pink;
                         this.dataGridView1.Rows[i].Cells[1].Style.Font = new Font("Verdana", 13, FontStyle.Bold);
                         this.dataGridView1.Rows[i].Cells[3].Style.Font = new Font("Verdana", 9, FontStyle.Bold);
                     }
@@ -152,6 +155,55 @@ namespace LOLAPI
             }
             dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightYellow;
+        }
+
+        private void ParsingTimeStamp()
+        {
+            string endTime = "";
+            TimeStamp s = new TimeStamp();
+            for (int i = 0; i < 10; i++)
+            {
+                try
+                {
+                    var url = "https://kr.api.riotgames.com/lol/match/v4/timelines/by-match/" + lstMatches[i].GameId + "?api_key=" + apiKey;
+                    var req = (HttpWebRequest)WebRequest.Create(url);
+                    var res = (HttpWebResponse)req.GetResponse();
+                    var stream = res.GetResponseStream();
+                    var sr = new StreamReader(stream, Encoding.UTF8);
+                    playerJson = sr.ReadToEnd();
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    //경기기록에 경기시간이 없을 수 있나?
+                    return;
+                }
+                var jObj = JObject.Parse(playerJson);
+                var itemsArr = JArray.Parse(jObj["frames"].ToString());
+
+                //var itemsArr = jObj["frames"]["timestamp"].ToString();
+
+                foreach (JObject item in itemsArr)
+                {
+                    endTime = item["timestamp"].ToString();
+
+                    s = new TimeStamp
+                    {
+                        EndTime = ReturnGameTime(endTime)
+                        //timeEvent
+                    };
+                }
+                lstTime.Add(s);
+            }
+        }
+        public static string ReturnGameTime(string time)
+        {
+            int a= Int32.Parse(time);
+            int b = a / 1000;
+            int sec = b % 60;
+            int min = b / 60;
+            //string returnTime = min+"분 "+sec+"초";
+            string returnTime = min + "분";
+            return returnTime;
         }
 
         public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
@@ -203,7 +255,7 @@ namespace LOLAPI
             {
                 try
                 {
-                    var url = "https://kr.api.riotgames.com/lol/match/v4/matches/" + lstMatches[i].GameId + "?api_key=RGAPI-e6d61569-0d24-4614-a910-65ded9e59901";
+                    var url = "https://kr.api.riotgames.com/lol/match/v4/matches/" + lstMatches[i].GameId + "?api_key=" + apiKey;
                     var req = (HttpWebRequest)WebRequest.Create(url);
                     var res = (HttpWebResponse)req.GetResponse();
                     var stream = res.GetResponseStream();
@@ -399,7 +451,7 @@ namespace LOLAPI
         {
             string lane;
 
-            var url = "https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + lstV4[0].AccountId + "?api_key=RGAPI-e6d61569-0d24-4614-a910-65ded9e59901";
+            var url = "https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + lstV4[0].AccountId + "?api_key=" + apiKey;
             var req = (HttpWebRequest)WebRequest.Create(url);
             try
             {
@@ -464,7 +516,7 @@ namespace LOLAPI
         {
             try
             {
-                var url = "https://kr.api.riotgames.com/lol/league/v4/positions/by-summoner/" + lstV4[0].Id + "?api_key=RGAPI-e6d61569-0d24-4614-a910-65ded9e59901";
+                var url = "https://kr.api.riotgames.com/lol/league/v4/positions/by-summoner/" + lstV4[0].Id + "?api_key=" + apiKey;
                 var req = (HttpWebRequest)WebRequest.Create(url);
                 var res = (HttpWebResponse)req.GetResponse();
                 var statusCode = res.StatusCode.ToString();
@@ -557,8 +609,8 @@ namespace LOLAPI
 
         private void ParsingSummonerCode()
         {
-            var url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + searchName + "?api_key=RGAPI-e6d61569-0d24-4614-a910-65ded9e59901";
-            var url2 = "https://kr.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + searchName + "?api_key=RGAPI-e6d61569-0d24-4614-a910-65ded9e59901";
+            var url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + searchName + "?api_key=" + apiKey;
+            var url2 = "https://kr.api.riotgames.com/lol/summoner/v3/summoners/by-name/" + searchName + "?api_key=" + apiKey;
             var req = (HttpWebRequest)WebRequest.Create(url);
             var req2 = (HttpWebRequest)WebRequest.Create(url2);
 
@@ -657,7 +709,7 @@ namespace LOLAPI
             matchBlueTab = new DataTable();
             matchBlueTab.Columns.Add("챔피언");
             matchBlueTab.Columns.Add("소환사");
-            matchBlueTab.Columns.Add("K D A");
+            matchBlueTab.Columns.Add("K / D / A");
             matchBlueTab.Columns.Add("스펠");
             matchBlueTab.Columns.Add("아이템");
             matchBlueTab.Columns.Add("골드수급");
@@ -667,7 +719,7 @@ namespace LOLAPI
             matchRedTab = new DataTable();
             matchRedTab.Columns.Add("챔피언");
             matchRedTab.Columns.Add("소환사");
-            matchRedTab.Columns.Add("K D A");
+            matchRedTab.Columns.Add("K / D / A");
             matchRedTab.Columns.Add("스펠");
             matchRedTab.Columns.Add("아이템");
             matchRedTab.Columns.Add("골드수급");
@@ -676,22 +728,43 @@ namespace LOLAPI
 
 
             int a = e.RowIndex * 10;
-
+            int blueSumGold = 0;
+            int blueSumDeal = 0;
+            int blueSumDamTaken = 0;
+            int blueSumKills = 0;
+            int blueSumDeaths = 0;
+            int blueSumAssists = 0;
             for (int j = 0; j < 5; j++)
             {
                 DataRow rowBlue = matchBlueTab.NewRow();
                 int b = a + j;
                 rowBlue["챔피언"] = lstPlayer[b].ChampionId;
                 rowBlue["소환사"] = lstPlayer[b].SummonerName;
-                rowBlue["K D A"] = lstPlayer[b].Kills + " / " + lstPlayer[b].Deaths + " / " + lstPlayer[b].Assists;
+                rowBlue["K / D / A"] = lstPlayer[b].Kills + " / " + lstPlayer[b].Deaths + " / " + lstPlayer[b].Assists;
                 rowBlue["스펠"] = lstPlayer[b].Spell1Id + " / " + lstPlayer[b].Spell2Id;
                 rowBlue["아이템"] = lstPlayer[b].Item0 + "/" + lstPlayer[b].Item1 + "/" + lstPlayer[b].Item2 + "/" + lstPlayer[b].Item3 + "/" + lstPlayer[b].Item4 + "/" + lstPlayer[b].Item5 + "/" + lstPlayer[b].Item6;
                 rowBlue["골드수급"] = lstPlayer[b].GoldEarned;
                 rowBlue["딜량"] = lstPlayer[b].TotalDamageDealtToChampions;
                 rowBlue["피해량"] = lstPlayer[b].TotalDamageTaken;
 
+                blueSumGold = blueSumGold + lstPlayer[b].GoldEarned;
+                blueSumDeal = blueSumDeal + lstPlayer[b].TotalDamageTaken;
+                blueSumDamTaken = blueSumDamTaken + lstPlayer[b].TotalDamageTaken;
+                blueSumKills = blueSumKills + lstPlayer[b].Kills;
+                blueSumDeaths = blueSumDeaths + lstPlayer[b].Deaths;
+                blueSumAssists = blueSumAssists + lstPlayer[b].Assists;
+
                 matchBlueTab.Rows.Add(rowBlue);
             }
+
+
+            int redSumGold = 0;
+            int redSumDeal = 0;
+            int redSumDamTaken = 0;
+            int redSumKills = 0;
+            int redSumDeaths = 0;
+            int redSumAssists = 0;
+
             for (int k = 5; k < 10; k++)
             {
                 DataRow rowRed = matchRedTab.NewRow();
@@ -700,12 +773,19 @@ namespace LOLAPI
 
                 rowRed["챔피언"] = lstPlayer[c].ChampionId;
                 rowRed["소환사"] = lstPlayer[c].SummonerName;
-                rowRed["K D A"] = lstPlayer[c].Kills + " / " + lstPlayer[c].Deaths + " / " + lstPlayer[c].Assists;
+                rowRed["K / D / A"] = lstPlayer[c].Kills + " / " + lstPlayer[c].Deaths + " / " + lstPlayer[c].Assists;
                 rowRed["스펠"] = lstPlayer[c].Spell1Id + " / " + lstPlayer[c].Spell2Id;
                 rowRed["아이템"] = lstPlayer[c].Item0 + "/" + lstPlayer[c].Item1 + "/" + lstPlayer[c].Item2 + "/" + lstPlayer[c].Item3 + "/" + lstPlayer[c].Item4 + "/" + lstPlayer[c].Item5 + "/" + lstPlayer[c].Item6;
                 rowRed["골드수급"] = lstPlayer[c].GoldEarned;
                 rowRed["딜량"] = lstPlayer[c].TotalDamageDealtToChampions;
                 rowRed["피해량"] = lstPlayer[c].TotalDamageTaken;
+
+                redSumGold = redSumGold + lstPlayer[c].GoldEarned;
+                redSumDeal = redSumDeal + lstPlayer[c].TotalDamageTaken;
+                redSumDamTaken = redSumDamTaken + lstPlayer[c].TotalDamageTaken;
+                redSumKills = redSumKills + lstPlayer[c].Kills;
+                redSumDeaths = redSumDeaths + lstPlayer[c].Deaths;
+                redSumAssists = redSumAssists + lstPlayer[c].Assists;
 
                 matchRedTab.Rows.Add(rowRed);
             }
@@ -713,20 +793,66 @@ namespace LOLAPI
             controlMatchInfo1.dgvBlueTeam.DataSource = matchBlueTab;
             controlMatchInfo1.dgvRedTeam.DataSource = matchRedTab;
 
-            //List<Bans> lstoutput = new List<Bans>();
-            int matchIndexNum = e.RowIndex * 2;
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    controlMatchInfo1.txtBansBlue.Text += lstMatInf[matchIndexNum].Bans[i].ToString();
-            //    controlMatchInfo1.txtBansRed.Text += lstMatInf[matchIndexNum + 1].Bans[i].ToString();
-            //}
 
+            this.controlMatchInfo1.lblBlueSumDeal.Text = "총 입힌피해량 : " + blueSumDeal;
+            this.controlMatchInfo1.lblBlueSumDTaken.Text = "총 입은피해량 : " + blueSumDamTaken;
+            this.controlMatchInfo1.lblBlueSumGold.Text = "총 골드획득 : " + blueSumGold + " G";
+            this.controlMatchInfo1.lblBlueSumKDA.Text = blueSumKills + " K / " + blueSumDeaths + " D / " + blueSumAssists + " A";
+            this.controlMatchInfo1.lblBlueSumKDA.ForeColor = Color.GreenYellow;
+
+            this.controlMatchInfo1.lblRedSumDeal.Text = "총 입힌피해량 : " + redSumDeal;
+            this.controlMatchInfo1.lblRedSumDTaken.Text = "총 입은피해량 : " + redSumDamTaken;
+            this.controlMatchInfo1.lblRedSumGold.Text = "총 골드획득 : " + redSumGold + " G";
+            this.controlMatchInfo1.lblRedSumKDA.Text = redSumKills + " K / " + redSumDeaths + " D / " + redSumAssists + " A";
+            this.controlMatchInfo1.lblRedSumKDA.ForeColor = Color.GreenYellow;
+            this.controlMatchInfo1.txtGameTime.Text = "\r\n 플레이 시간  "+"\r\n      " + lstTime[e.RowIndex].EndTime;
+
+            //for (int i = 0; i <= playTimeIndex; i++)
+            //{
+            //    for (int j = 0; j < resultTab.Columns.Count; j++)
+            //    {
+            //        if (dataGridView1.Rows[i].Cells[1].Value.ToString() == "승")
+            //        {
+            //            this.dataGridView1.Rows[i].Cells[j].Style.BackColor = Color.CornflowerBlue;
+            //            this.dataGridView1.Rows[i].Cells[1].Style.Font = new Font("Verdana", 13, FontStyle.Bold);
+            //            this.dataGridView1.Rows[i].Cells[3].Style.Font = new Font("Verdana", 9, FontStyle.Bold);
+            //        }
+            //        else if (dataGridView1.Rows[i].Cells[1].Value.ToString() == "패")
+            //        {
+            //            this.dataGridView1.Rows[i].Cells[j].Style.BackColor = Color.PaleVioletRed;
+            //            this.dataGridView1.Rows[i].Cells[1].Style.Font = new Font("Verdana", 13, FontStyle.Bold);
+            //            this.dataGridView1.Rows[i].Cells[3].Style.Font = new Font("Verdana", 9, FontStyle.Bold);
+            //        }
+            //        else
+            //        {
+            //            this.dataGridView1.Rows[i].Cells[j].Style.BackColor = Color.SlateGray;
+            //        }
+            //    }
+            //}
+            //dataGridView1.EnableHeadersVisualStyles = false;
+            //this.dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.LightYellow;
+
+            for (int i = 0; i < controlMatchInfo1.dgvBlueTeam.RowCount; i++)
+            {
+                for (int j = 0; j < controlMatchInfo1.dgvBlueTeam.ColumnCount; j++)
+                {
+                    this.controlMatchInfo1.dgvBlueTeam.Rows[i].Cells[j].Style.BackColor = Color.CornflowerBlue;
+                    this.controlMatchInfo1.dgvRedTeam.Rows[i].Cells[j].Style.BackColor = Color.PaleVioletRed;
+                }
+            }
+            this.controlMatchInfo1.dgvBlueTeam.EnableHeadersVisualStyles = false;
+            this.controlMatchInfo1.dgvBlueTeam.ColumnHeadersDefaultCellStyle.BackColor = Color.LightYellow;
+            this.controlMatchInfo1.dgvRedTeam.EnableHeadersVisualStyles = false;
+            this.controlMatchInfo1.dgvRedTeam.ColumnHeadersDefaultCellStyle.BackColor = Color.LightYellow;
+
+
+            int matchIndexNum = e.RowIndex * 2;
             if (lstMatInf[matchIndexNum].Win == "Win")
             {
                 controlMatchInfo1.lblWin.Text = "블루팀 승리";
                 controlMatchInfo1.lblWin.ForeColor = Color.CornflowerBlue;
             }
-            else if(lstMatInf[matchIndexNum+1].Win == "Win")
+            else if (lstMatInf[matchIndexNum + 1].Win == "Win")
             {
                 controlMatchInfo1.lblWin.Text = "레드팀 승리";
                 controlMatchInfo1.lblWin.ForeColor = Color.PaleVioletRed;
@@ -740,7 +866,7 @@ namespace LOLAPI
             int sumBaron = lstMatInf[matchIndexNum].BaronKills + lstMatInf[matchIndexNum + 1].BaronKills;
             int sumTower = lstMatInf[matchIndexNum].TowerKills + lstMatInf[matchIndexNum + 1].TowerKills;
             int sumInhibitor = lstMatInf[matchIndexNum].InhibitorKills + lstMatInf[matchIndexNum + 1].InhibitorKills;
-            //this.controlMatchDetail1.lblSumObject.Text = "총 드래곤 : " + sumDragon + " 총 바론 : " + sumBaron+"\n" +  "총 타워파괴 : " + sumTower + " 총 억제기 파괴 : " + sumInhibitor;
+
             this.controlMatchDetail1.label10.Text = "총 드래곤 : " + sumDragon;
             this.controlMatchDetail1.label12.Text = " 총 바론 : " + sumBaron;
             this.controlMatchDetail1.label9.Text = "총 타워파괴 : " + sumTower;
@@ -761,7 +887,7 @@ namespace LOLAPI
                 this.controlMatchDetail1.lblDragon.Text = "첫 드래곤 : 블루팀";
                 this.controlMatchDetail1.lblDragon.ForeColor = Color.Blue;
             }
-            else if(lstMatInf[matchIndexNum+1].FirstDragon)
+            else if (lstMatInf[matchIndexNum + 1].FirstDragon)
             {
                 this.controlMatchDetail1.lblDragon.Text = "첫 드래곤 : 레드팀";
                 this.controlMatchDetail1.lblDragon.ForeColor = Color.Red;
@@ -777,7 +903,7 @@ namespace LOLAPI
                 this.controlMatchDetail1.lblBaron.Text = "첫 바론 : 블루팀";
                 this.controlMatchDetail1.lblBaron.ForeColor = Color.Blue;
             }
-            else if(lstMatInf[matchIndexNum+1].FirstBaron)
+            else if (lstMatInf[matchIndexNum + 1].FirstBaron)
             {
                 this.controlMatchDetail1.lblBaron.Text = "첫 바론 : 레드팀";
                 this.controlMatchDetail1.lblBaron.ForeColor = Color.Red;
@@ -794,7 +920,7 @@ namespace LOLAPI
                 this.controlMatchDetail1.lblTower.Text = "첫 타워 : 블루팀";
                 this.controlMatchDetail1.lblTower.ForeColor = Color.Blue;
             }
-            else if(lstMatInf[matchIndexNum+1].FirstTower)
+            else if (lstMatInf[matchIndexNum + 1].FirstTower)
             {
                 this.controlMatchDetail1.lblTower.Text = "첫 타워 : 레드팀";
                 this.controlMatchDetail1.lblTower.ForeColor = Color.Red;
@@ -810,7 +936,7 @@ namespace LOLAPI
                 this.controlMatchDetail1.lblInhibitor.Text = "첫 억제기 : 블루팀";
                 this.controlMatchDetail1.lblInhibitor.ForeColor = Color.Blue;
             }
-            else if(lstMatInf[matchIndexNum+1].FirstInhibitor)
+            else if (lstMatInf[matchIndexNum + 1].FirstInhibitor)
             {
                 this.controlMatchDetail1.lblInhibitor.Text = "첫 억제기 : 레드팀";
                 this.controlMatchDetail1.lblInhibitor.ForeColor = Color.Red;
